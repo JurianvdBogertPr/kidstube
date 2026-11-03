@@ -26,28 +26,61 @@ Op de telefoon: open dat adres en kies in het browsermenu
 "Toevoegen aan beginscherm" / "App installeren". Je krijgt dan een
 schermvullende app met het KidsTube-icoon, zonder adresbalk.
 
-De lijst delen tussen pc en telefoon:
-1. Beheer je video's in het ouderscherm (op de pc).
-2. Instellingen -> "videos.json maken" (het bestand komt in je map Downloads).
-3. Dubbelklik op "Lijst publiceren.cmd" in de KidsTube-map.
-   Dat zet het bestand in de repo en stuurt het naar GitHub.
+KIJKEN
+- Tik op een tegel om te kijken. Met de knoppen onderin: afspelen/pauze,
+  spoelen, ondertiteling aan/uit, geluid en volledig scherm.
+- Ondertiteling staat standaard uit (aan te passen bij Instellingen).
+- Video's starten standaard in volledig scherm (ook aan te passen).
+  Op de iPhone kent de browser geen volledig scherm voor web-apps; daar
+  verbergt KidsTube zelf de balken zodat het beeld toch het scherm vult.
 
-Na ongeveer een minuut staat de nieuwe lijst online. Je apparaten pakken hem op:
-- bij het openen van de app
-- zodra je de app weer naar voren haalt
-- of direct met de knop "Nu ophalen" in het ouderscherm
+
+KINDERSLOT
+Instellingen -> Kinderslot: blokkeert de terug-knop en vraagt om de pincode
+voordat de app afgesloten kan worden. Rechtsboven verschijnt dan een slotje.
+
+Een website of web-app kan NIET verhinderen dat iemand naar een andere app
+gaat. Wil je het apparaat echt vastzetten, gebruik dan de functie van het
+toestel zelf:
+
+- Android: Instellingen -> Beveiliging -> Schermvastzetten (App pinnen).
+  Zet "Vraag pincode voor losmaken" aan, open KidsTube en pin het scherm vast.
+- iPhone/iPad: Instellingen -> Toegankelijkheid -> Begeleide toegang.
+  Aanzetten, code instellen, KidsTube openen en 3x op de zijknop drukken.
+- Windows: start KidsTube via de snelkoppeling; dat venster heeft geen
+  adresbalk. Voor volledige kiosk kun je een apart kinderaccount gebruiken.
+
+
+DE LIJST OVERAL GELIJK: TWEE MANIEREN
+
+A. Publiceren vanuit de app (makkelijkst, ook vanaf de telefoon)
+1. Maak op github.com een fine-grained token:
+   Settings -> Developer settings -> Fine-grained tokens -> Generate new token
+   Repository access: alleen jouw kidstube-repo
+   Permissions -> Repository permissions -> Contents: Read and write
+2. In KidsTube: slotje -> Instellingen -> "Automatisch publiceren naar GitHub".
+   Vul gebruiker/repo en het token in en klik op Opslaan.
+3. Klik voortaan op "Lijst nu publiceren". Binnen ongeveer een minuut
+   hebben alle apparaten dezelfde lijst.
+
+Zet het token alleen op JOUW apparaat, niet op dat van je kind: met dat
+token kan iemand de lijst in je repo wijzigen.
+
+B. Via een bestand (zonder token)
+1. Instellingen -> "videos.json maken" (komt in je map Downloads).
+2. Dubbelklik op "Lijst publiceren.cmd" in de KidsTube-map.
+
+Apparaten halen de lijst op bij het openen van de app, zodra je de app weer
+naar voren haalt, elke 5 minuten, en direct met de knop "Nu ophalen".
 
 Elk apparaat is daarna exact gelijk aan videos.json: toevoegingen,
 naamswijzigingen en verwijderingen gaan mee. Favorieten, kijktijd en
 pincode blijven per apparaat.
 
 Video's die je op een apparaat toevoegt staan in het ouderscherm als
-"alleen hier". Ze blijven staan tot je ze via stap 2 en 3 publiceert.
+"alleen hier". Ze blijven staan tot je publiceert.
 Wil je het anders? Instellingen -> "Gedeelde lijst": Leidend (standaard),
 Alleen aanvullen, of Negeren.
-
-Zie je de wijziging nog niet? Dan staat hij bijna altijd nog niet in de
-repo (stap 3 vergeten), of GitHub is nog bezig met bijwerken.
 
 Zoeken werkt online alleen met een gratis YouTube API-sleutel
 (Instellingen → YouTube API-sleutel). Thuis via het startbestand

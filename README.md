@@ -9,9 +9,15 @@ Geen zoekbalk, geen aanbevelingen, geen reacties en geen doorklikken naar YouTub
 
 **Kinderscherm**
 - Grote tegels met thumbnail, categorieën met emoji en kleur, favorieten ⭐
-- Eigen bediening (afspelen/pauze, spoelen, geluid, volledig scherm); er kan niet in de YouTube-speler geklikt worden
+- Eigen bediening (afspelen/pauze, spoelen, ondertiteling, geluid, volledig scherm);
+  er kan niet in de YouTube-speler geklikt worden
+- Video's starten desgewenst in volledig scherm, ondertiteling standaard uit
 - Kijktijdlimiet per dag met een vriendelijk "Klaar voor vandaag"-scherm
+- Kinderslot: blokkeert de terug-knop en vraagt de pincode bij afsluiten
 - Licht/donker thema, volledig Nederlands
+
+> Een web-app kan niet verhinderen dat iemand naar een andere app gaat. Zet het toestel
+> echt vast met **Schermvastzetten** (Android) of **Begeleide toegang** (iPhone/iPad).
 
 **Ouderscherm (achter pincode, standaard `1234`)**
 - Video's toevoegen via link, bewerken, volgorde aanpassen, meervoudig verwijderen
@@ -29,22 +35,22 @@ In het ouderscherm staat onder Instellingen ook een knop **📲 App installeren*
 ### Lijst delen tussen apparaten
 
 `videos.json` in deze repo is de **gedeelde lijst en de bron van waarheid**. Standaard staat
-elk apparaat op *Leidend*: na het openen van de app is de lijst exact gelijk aan `videos.json`
-— ook verwijderde video's, gewijzigde titels en categorieën worden overgenomen.
+elk apparaat op *Leidend*: de lijst is exact gelijk aan `videos.json` — ook verwijderde
+video's, gewijzigde titels en categorieën worden overgenomen.
 
-1. Beheer je lijst in het ouderscherm.
-2. Instellingen → **📤 videos.json maken** (landt in je map Downloads).
-3. Dubbelklik op **`Lijst publiceren.cmd`**: dat zet het bestand in de repo, commit en pusht.
-   (Handmatig mag ook: `videos.json` vervangen en committen.)
+**Publiceren vanuit de app** (ook vanaf de telefoon): vul bij Instellingen je repo en een
+fine-grained token in (*Contents: Read and write* op alleen deze repo) en klik op
+**⬆️ Lijst nu publiceren**. Zet dat token alleen op het apparaat van de ouder.
 
-Na ongeveer een minuut staat de lijst online. Apparaten halen hem op bij het openen van de
-app, zodra de app weer naar voren komt, of direct via **🔄 Nu ophalen** in het ouderscherm.
-De app vraagt het bestand met een unieke URL op, zodat GitHub's cache van 10 minuten
-je niet in de weg zit.
+**Publiceren via een bestand**: Instellingen → **📤 videos.json maken** → dubbelklik
+`Lijst publiceren.cmd`.
 
-Video's die je op één apparaat toevoegt blijven daar staan (in het ouderscherm gemarkeerd als
-*alleen hier*) totdat je ze via stap 2 en 3 in de repo zet. Favorieten, kijktijd en pincode
-blijven altijd per apparaat.
+Apparaten halen de lijst op bij het openen van de app, bij terugkeren naar de app, elke
+5 minuten, en direct via **🔄 Nu ophalen**. De app vraagt het bestand met een unieke URL op,
+zodat GitHub's cache van 10 minuten niet in de weg zit.
+
+Video's die je op één apparaat toevoegt blijven daar staan (gemarkeerd als *alleen hier*)
+totdat je publiceert. Favorieten, kijktijd en pincode blijven altijd per apparaat.
 
 In Instellingen kun je dit per apparaat aanpassen:
 

@@ -147,6 +147,7 @@
     display:flex;align-items:center;gap:12px;padding:12px 16px;color:#fff;
     background:#0b0d1c;
   }
+  .player.immersive .playerbar{display:none}
   .playerbar .t{font-weight:800;font-size:1.05rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .backbtn{
     display:inline-flex;align-items:center;gap:8px;
@@ -307,6 +308,7 @@
   <header class="top">
     <div class="logo"><div class="mark">▶</div><span class="txt">KidsTube</span></div>
     <div class="spacer"></div>
+    <button class="iconbtn" id="lockBtn" title="Kinderslot" style="display:none">🔐</button>
     <div id="timePill" class="pill" title="Kijktijd van vandaag">⏱️ <span id="timeText">–</span></div>
     <button class="iconbtn" id="themeBtn" title="Dag / nacht">🌙</button>
     <button class="iconbtn" id="parentBtn" title="Voor ouders">🔒</button>
@@ -347,6 +349,7 @@
     <span class="ctime" id="curTime">0:00</span>
     <input type="range" id="seek" min="0" max="1000" value="0" step="1" aria-label="Positie in video" />
     <span class="ctime" id="durTime">0:00</span>
+    <button class="cbtn sec" id="ccBtn" title="Ondertiteling aan/uit">💬</button>
     <button class="cbtn sec" id="muteBtn" title="Geluid aan/uit">🔊</button>
     <button class="cbtn sec" id="fsBtn" title="Volledig scherm">⛶</button>
   </div>
@@ -473,6 +476,30 @@
 
       <!-- INSTELLINGEN -->
       <section id="tabSet" style="display:none">
+        <span style="font-weight:800;font-size:.95rem">Kijken</span>
+        <div class="row" style="margin-top:10px;gap:18px">
+          <label style="display:flex;align-items:center;gap:10px;font-weight:700">
+            <input type="checkbox" id="optFs" style="width:22px;height:22px;accent-color:var(--accent)" />
+            Video's starten in volledig scherm
+          </label>
+          <label style="display:flex;align-items:center;gap:10px;font-weight:700">
+            <input type="checkbox" id="optCc" style="width:22px;height:22px;accent-color:var(--accent)" />
+            Ondertiteling standaard uit
+          </label>
+        </div>
+
+        <hr style="border:none;border-top:2px solid var(--line);margin:22px 0" />
+
+        <span style="font-weight:800;font-size:.95rem">Kinderslot</span>
+        <div class="row" style="margin-top:10px">
+          <label style="display:flex;align-items:center;gap:10px;font-weight:700">
+            <input type="checkbox" id="optLock" style="width:22px;height:22px;accent-color:var(--accent)" />
+            App vergrendelen: terug-knop blokkeren, afsluiten vraagt om de pincode
+          </label>
+        </div>
+        <p class="note" id="lockNote" style="margin-top:8px"></p>
+
+        <hr style="border:none;border-top:2px solid var(--line);margin:22px 0" />
         <label class="field"><span>Kijktijd per dag beperken</span>
           <div class="row">
             <select id="limitOn" style="width:160px">
@@ -511,6 +538,19 @@
           </div>
         </label>
         <p class="note" id="sharedNote"></p>
+
+        <div style="margin-top:16px">
+          <span style="font-weight:800;font-size:.95rem">Automatisch publiceren naar GitHub</span>
+          <div class="row" style="margin-top:8px;gap:10px">
+            <input type="text" id="ghRepo" placeholder="gebruiker/repo" style="flex:1;min-width:180px" />
+            <input type="password" id="ghToken" placeholder="GitHub-token" style="flex:1;min-width:180px" />
+            <button class="btn sec" id="ghSave">Opslaan</button>
+          </div>
+          <div class="row" style="margin-top:10px">
+            <button class="btn ok" id="publishBtn">⬆️ Lijst nu publiceren</button>
+          </div>
+          <p class="note" id="ghNote" style="margin-top:8px">Vul dit één keer in op het apparaat waar jij de lijst beheert. Daarna publiceer je met één knop en volgen alle andere apparaten vanzelf. Maak op github.com → Settings → Developer settings → Fine-grained tokens een token met alleen <b>Contents: Read and write</b> op deze ene repo. Zet dit niet op het apparaat van je kind.</p>
+        </div>
 
         <hr style="border:none;border-top:2px solid var(--line);margin:22px 0" />
 
@@ -578,6 +618,11 @@ const DEFAULTS = {
   sharedRev: 0,
   sharedAt: 0,
   sharedMode: "mirror",
+  ghRepo: "",
+  ghToken: "",
+  autoFs: true,
+  ccOff: true,
+  lockEnabled: false,
   limitEnabled: true,
   limitMin: 30,
   bonusMin: 0,
@@ -727,6 +772,48 @@ function renderTime(){
   $("#playerTime").textContent = left <= 0 ? "0:00" : fmt(left);
 }
 
+/* ---------------- Volledig scherm ---------------- */
+function fsElement(){
+  return document.fullscreenElement || document.webkitFullscreenElement || null;
+}
+function fsMogelijk(el){
+  return !!(el.requestFullscreen || el.webkitRequestFullscreen || el.webkitRequestFullScreen);
+}
+async function fsAan(el){
+  try{
+    if(el.requestFullscreen) await el.requestFullscreen();
+    else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+    else if(el.webkitRequestFullScreen) el.webkitRequestFullScreen();
+    else throw new Error("niet ondersteund");
+    return true;
+  }catch(e){ return false; }
+}
+function fsUit(){
+  try{
+    if(document.exitFullscreen) document.exitFullscreen().catch(()=>{});
+    else if(document.webkitExitFullscreen) document.webkitExitFullscreen();
+  }catch(_){}
+}
+/* iPhone kent geen volledig scherm voor gewone elementen: dan verbergen we
+   de balken zodat de video toch het hele scherm vult. */
+async function schermVullend(aan){
+  const el = $("#player");
+  if(aan){
+    const gelukt = await fsAan(el);
+    if(!gelukt) el.classList.add("immersive");
+  }else{
+    if(fsElement()) fsUit();
+    el.classList.remove("immersive");
+  }
+  werkFsKnopBij();
+}
+function werkFsKnopBij(){
+  const vol = !!fsElement() || $("#player").classList.contains("immersive");
+  $("#fsBtn").textContent = vol ? "🗗" : "⛶";
+}
+document.addEventListener("fullscreenchange", werkFsKnopBij);
+document.addEventListener("webkitfullscreenchange", werkFsKnopBij);
+
 /* ---------------- Speler + kijktijd ---------------- */
 let player = null, apiReady = false, tickT = null, current = null, usingFallback = false;
 let uiT = null, seeking = false;
@@ -750,6 +837,7 @@ function openPlayer(id){
   $("#playerErr").classList.remove("show");
   renderTime();
   startVideo(v.yt);
+  if(S.autoFs) schermVullend(true);
 }
 
 function showPlayerError(code){
@@ -776,8 +864,8 @@ function resetStage(){
 }
 
 function startVideo(ytId){
-  const opts = { rel:0, modestbranding:1, playsinline:1, autoplay:1, iv_load_policy:3, fs:1 };
-  if(isWeb) opts.origin = location.origin;
+  const opts = { rel:0, modestbranding:1, playsinline:1, autoplay:1, iv_load_policy:3, fs:1,
+                 cc_load_policy: S.ccOff ? 0 : 1 };
   resetStage();
   if(apiReady && window.YT && window.YT.Player){
     $("#controls").classList.add("show");
@@ -791,7 +879,12 @@ function startVideo(ytId){
       videoId: ytId,
       playerVars: opts,
       events:{
-        onReady: e => { try{ e.target.playVideo(); }catch(_){} startUiLoop(); },
+        onReady: e => {
+          try{ e.target.playVideo(); }catch(_){}
+          ccAan = !S.ccOff;
+          ccToepassen();
+          startUiLoop();
+        },
         onError: e => showPlayerError(e.data),
         onStateChange: e => {
           if(e.data === YT.PlayerState.PLAYING){ startTick(); $("#ppBtn").textContent = "⏸"; }
@@ -837,10 +930,27 @@ $("#muteBtn").onclick = () => {
   if(player.isMuted()) player.unMute(); else player.mute();
 };
 $("#fsBtn").onclick = () => {
-  const el = $("#player");
-  if(document.fullscreenElement) document.exitFullscreen();
-  else if(el.requestFullscreen) el.requestFullscreen().catch(()=>{});
+  const vol = !!fsElement() || $("#player").classList.contains("immersive");
+  schermVullend(!vol);
 };
+
+/* Ondertiteling */
+let ccAan = false;
+function ccToepassen(){
+  if(!player) return;
+  try{
+    if(ccAan){
+      if(player.loadModule) player.loadModule("captions");
+      if(player.setOption) player.setOption("captions", "track", { languageCode: "nl" });
+    }else{
+      if(player.unloadModule){ player.unloadModule("captions"); player.unloadModule("cc"); }
+      if(player.setOption) player.setOption("captions", "track", {});
+    }
+  }catch(_){}
+  $("#ccBtn").textContent = ccAan ? "💬" : "🚫";
+  $("#ccBtn").title = ccAan ? "Ondertiteling uitzetten" : "Ondertiteling aanzetten";
+}
+$("#ccBtn").onclick = () => { ccAan = !ccAan; ccToepassen(); toast(ccAan ? "Ondertiteling aan" : "Ondertiteling uit"); };
 $("#seek").addEventListener("input", () => { seeking = true; });
 $("#seek").addEventListener("change", () => {
   if(player && player.getDuration){
@@ -863,7 +973,7 @@ function stopTick(){ clearInterval(tickT); tickT = null; save(); }
 
 function closePlayer(){
   stopTick(); stopUiLoop();
-  if(document.fullscreenElement) document.exitFullscreen().catch(()=>{});
+  schermVullend(false);
   $("#player").classList.remove("show");
   $("#playerErr").classList.remove("show");
   try{ if(player && player.destroy) player.destroy(); }catch(_){}
@@ -1453,6 +1563,14 @@ function renderCList(){
 function renderSettings(){
   $("#apiKey").value = S.apiKey || "";
   $("#sharedMode").value = S.sharedMode || "mirror";
+  $("#optFs").checked = !!S.autoFs;
+  $("#optCc").checked = !!S.ccOff;
+  $("#optLock").checked = !!S.lockEnabled;
+  $("#ghRepo").value = S.ghRepo || standaardRepo();
+  $("#ghToken").value = S.ghToken || "";
+  $("#lockNote").textContent = S.lockEnabled
+    ? "Staat aan: de terug-knop werkt niet meer en afsluiten vraagt om de pincode (slotje 🔐 rechtsboven). Een browser kan niet verhinderen dat iemand van app wisselt – gebruik daarvoor Schermvastzetten (Android) of Begeleide toegang (iPhone)."
+    : "Blokkeert de terug-knop en vraagt om de pincode bij afsluiten. Echt vastzetten doe je met Schermvastzetten (Android) of Begeleide toegang (iPhone); zie 'Lees mij eerst'.";
   const lokaal = S.videos.filter(v => v.src !== "shared").length;
   const gedeeld = S.videos.length - lokaal;
   const opgehaald = S.sharedAt ? new Date(S.sharedAt).toLocaleString("nl-NL", {hour:"2-digit", minute:"2-digit", day:"numeric", month:"short"}) : "nog niet";
@@ -1508,6 +1626,24 @@ $("#syncBtn").onclick = async () => {
   await loadShared();
   renderSettings(); renderVList();
   $("#syncBtn").disabled = false;
+};
+
+$("#optFs").onchange = () => { S.autoFs = $("#optFs").checked; save(); toast("Opgeslagen"); };
+$("#optCc").onchange = () => {
+  S.ccOff = $("#optCc").checked;
+  save();
+  ccAan = !S.ccOff;
+  ccToepassen();
+  toast(S.ccOff ? "Ondertiteling standaard uit" : "Ondertiteling standaard aan");
+};
+$("#optLock").onchange = () => {
+  if(!$("#optLock").checked && S.lockEnabled){
+    $("#optLock").checked = true;
+    return askPin(() => { S.lockEnabled = false; save(); lockToepassen(); renderSettings(); toast("Kinderslot uit 🔓"); });
+  }
+  S.lockEnabled = $("#optLock").checked;
+  save(); lockToepassen(); renderSettings();
+  toast(S.lockEnabled ? "Kinderslot aan 🔐" : "Kinderslot uit");
 };
 
 $("#shareBtn").onclick = () => {
@@ -1575,6 +1711,120 @@ $("#installBtn").onclick = async () => {
   try{ await installPrompt.userChoice; }catch(_){}
   installPrompt = null;
   $("#installBtn").style.display = "none";
+};
+
+/* ---------------- Kinderslot ---------------- */
+function lockToepassen(){
+  $("#lockBtn").style.display = S.lockEnabled ? "grid" : "none";
+  if(S.lockEnabled && !window.__lockActief){
+    window.__lockActief = true;
+    history.pushState({ kidslock:1 }, "");
+    window.addEventListener("popstate", () => {
+      if(!S.lockEnabled) return;
+      history.pushState({ kidslock:1 }, "");
+      toast("Vraag een ouder om de app te sluiten 🔐");
+    });
+    window.addEventListener("beforeunload", e => {
+      if(!S.lockEnabled) return;
+      e.preventDefault();
+      e.returnValue = "";
+    });
+  }
+}
+
+$("#lockBtn").onclick = () => askPin(() => {
+  S.lockEnabled = false;
+  save();
+  lockToepassen();
+  renderSettings();
+  toast("Kinderslot uit – je kunt de app nu sluiten 🔓");
+});
+
+/* ---------------- Publiceren naar GitHub ---------------- */
+function standaardRepo(){
+  const m = location.hostname.match(/^([^.]+)\.github\.io$/i);
+  if(!m) return "";
+  const pad = location.pathname.split("/").filter(Boolean)[0];
+  return pad ? m[1] + "/" + pad : "";
+}
+
+function lijstAlsJson(){
+  return {
+    rev: Date.now(),
+    cats: S.cats,
+    videos: S.videos.map(v => ({ yt:v.yt, title:v.title, cat:v.cat }))
+  };
+}
+
+async function publiceerLijst(){
+  const repo = (S.ghRepo || "").trim();
+  const token = (S.ghToken || "").trim();
+  if(!repo || !token) throw new Error("geen-gegevens");
+
+  const api = "https://api.github.com/repos/" + repo + "/contents/videos.json";
+  const headers = {
+    "Authorization": "Bearer " + token,
+    "Accept": "application/vnd.github+json",
+    "X-GitHub-Api-Version": "2022-11-28"
+  };
+
+  let sha;
+  const huidig = await fetch(api + "?ref=HEAD", { headers, cache:"no-store" });
+  if(huidig.ok) sha = (await huidig.json()).sha;
+  else if(huidig.status === 401 || huidig.status === 403) throw new Error("geen-toegang");
+
+  const data = lijstAlsJson();
+  const tekst = JSON.stringify(data, null, 2);
+  const inhoud = btoa(String.fromCharCode(...new TextEncoder().encode(tekst)));
+
+  const res = await fetch(api, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify({
+      message: "Lijst bijgewerkt via KidsTube (" + data.videos.length + " video's)",
+      content: inhoud,
+      sha
+    })
+  });
+  if(!res.ok) throw new Error("http-" + res.status);
+
+  S.videos.forEach(v => { v.src = "shared"; });
+  S.sharedRev = data.rev;
+  S.sharedAt = Date.now();
+  save();
+  return data.videos.length;
+}
+
+$("#ghSave").onclick = () => {
+  S.ghRepo = $("#ghRepo").value.trim();
+  S.ghToken = $("#ghToken").value.trim();
+  save();
+  renderSettings();
+  toast("Opgeslagen 🔑");
+};
+
+$("#publishBtn").onclick = async () => {
+  const btn = $("#publishBtn");
+  btn.disabled = true;
+  btn.textContent = "⏳ Publiceren…";
+  try{
+    const n = await publiceerLijst();
+    renderVList(); renderSettings();
+    toast(n + " video's gepubliceerd ✅ Andere apparaten volgen binnen een minuut.");
+  }catch(e){
+    const uitleg = {
+      "geen-gegevens": "Vul eerst de repo en een token in.",
+      "geen-toegang": "Het token heeft geen toegang tot deze repo.",
+      "http-404": "Repo of bestand niet gevonden. Klopt gebruiker/repo?",
+      "http-409": "Er is net iets anders gepubliceerd. Probeer het nog eens.",
+      "http-422": "GitHub weigerde de wijziging. Probeer het nog eens."
+    }[e.message] || "Publiceren lukte niet. Controleer je internet en het token.";
+    toast(uitleg);
+    $("#ghNote").textContent = uitleg;
+  }finally{
+    btn.disabled = false;
+    btn.textContent = "⬆️ Lijst nu publiceren";
+  }
 };
 
 /* ---------------- Gedeelde lijst (videos.json) ---------------- */
@@ -1684,9 +1934,15 @@ document.addEventListener("visibilitychange", () => {
 
 /* ---------------- Start ---------------- */
 setInterval(() => { rollDay(); renderTime(); }, 30000);
-renderCats(); renderGrid(); renderTime();
+renderCats(); renderGrid(); renderTime(); lockToepassen();
 if(!isWeb) setTimeout(() => toast("Tip: start via “KidsTube starten.cmd” 🚀"), 900);
-if(isWeb) loadShared(true);
+if(isWeb){
+  loadShared(true);
+  /* elke 5 minuten kijken of de gedeelde lijst is bijgewerkt */
+  setInterval(() => {
+    if(!document.hidden && !$("#player").classList.contains("show")) loadShared(true);
+  }, 300000);
+}
 if("serviceWorker" in navigator && location.protocol === "https:"){
   const hadController = !!navigator.serviceWorker.controller;
   let herladen = false;
