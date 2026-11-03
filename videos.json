@@ -1,11 +1,11 @@
 {
-  "rev": 1793720909130,
+  "rev": 1793721016081,
   "cats": [
     { "id": "verhalen", "name": "Verhalen", "emo": "🧸", "color": "#a259ff" },
     { "id": "dieren", "name": "Dieren", "emo": "🐶", "color": "#22b07d" }
   ],
   "videos": [
     { "yt": "aqz-KE-bpKQ", "title": "Big Buck Bunny", "cat": "verhalen" },
-    { "yt": "eRsGyueVLvQ", "title": "Sintel", "cat": "verhalen" }
+    { "yt": "eRsGyueVLvQ", "title": "Sintel (korte film)", "cat": "verhalen" }
   ]
 }
