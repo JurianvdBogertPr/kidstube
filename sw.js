@@ -1,5 +1,5 @@
 /* KidsTube service worker: app offline beschikbaar, lijst altijd vers. */
-const CACHE = "kidstube-v1";
+const CACHE = "kidstube-v2";
 const SHELL = [
   "./",
   "index.html",

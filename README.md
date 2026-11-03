@@ -23,6 +23,8 @@ Geen zoekbalk, geen aanbevelingen, geen reacties en geen doorklikken naar YouTub
 
 De app draait als statische site, bijvoorbeeld op GitHub Pages. Open het webadres,
 en op de telefoon: **Toevoegen aan beginscherm** voor een schermvullende app zonder adresbalk.
+In het ouderscherm staat onder Instellingen ook een knop **📲 App installeren**
+(zichtbaar zodra de browser dat ondersteunt, zoals Chrome op Android).
 
 ### Lijst delen tussen apparaten
 

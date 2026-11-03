@@ -500,6 +500,14 @@
 
         <hr style="border:none;border-top:2px solid var(--line);margin:22px 0" />
 
+        <span style="font-weight:800;font-size:.95rem">Op dit apparaat installeren</span>
+        <div class="row" style="margin-top:8px">
+          <button class="btn" id="installBtn" style="display:none">📲 App installeren</button>
+        </div>
+        <p class="note" id="installNote" style="margin-top:8px">Android (Chrome): menu ⋮ → “App installeren”. iPhone/iPad (Safari): deelknop → “Zet op beginscherm”. Je krijgt dan een schermvullende app met het KidsTube-icoon, zonder adresbalk.</p>
+
+        <hr style="border:none;border-top:2px solid var(--line);margin:22px 0" />
+
         <label class="field"><span>YouTube API-sleutel (alleen nodig voor zoeken op de online versie)</span>
           <div class="row">
             <input type="text" id="apiKey" placeholder="AIza..." style="flex:1;min-width:200px" />
@@ -1428,6 +1436,10 @@ function renderCList(){
 /* instellingen */
 function renderSettings(){
   $("#apiKey").value = S.apiKey || "";
+  if(staatAlsApp){
+    $("#installBtn").style.display = "none";
+    $("#installNote").textContent = "KidsTube draait al als app op dit apparaat 🎉";
+  }
   $("#limitOn").value = S.limitEnabled ? "1" : "0";
   $("#limitMin").value = S.limitMin;
   const used = fmt(S.usageSec), tot = S.limitMin + (S.bonusMin||0);
@@ -1493,6 +1505,32 @@ $("#importFile").onchange = e => {
   };
   r.readAsText(f);
   e.target.value = "";
+};
+
+/* ---------------- Installeren als app ---------------- */
+let installPrompt = null;
+const staatAlsApp = window.matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+
+window.addEventListener("beforeinstallprompt", e => {
+  e.preventDefault();
+  installPrompt = e;
+  $("#installBtn").style.display = "inline-flex";
+  $("#installNote").textContent = "Klik op “App installeren” voor een schermvullende app met het KidsTube-icoon, zonder adresbalk.";
+});
+
+window.addEventListener("appinstalled", () => {
+  installPrompt = null;
+  $("#installBtn").style.display = "none";
+  $("#installNote").textContent = "KidsTube is op dit apparaat geïnstalleerd 🎉";
+  toast("KidsTube is geïnstalleerd 🎉");
+});
+
+$("#installBtn").onclick = async () => {
+  if(!installPrompt) return;
+  installPrompt.prompt();
+  try{ await installPrompt.userChoice; }catch(_){}
+  installPrompt = null;
+  $("#installBtn").style.display = "none";
 };
 
 /* ---------------- Gedeelde lijst (videos.json) ---------------- */
