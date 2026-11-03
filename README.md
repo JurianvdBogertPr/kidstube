@@ -33,8 +33,14 @@ elk apparaat op *Leidend*: na het openen van de app is de lijst exact gelijk aan
 — ook verwijderde video's, gewijzigde titels en categorieën worden overgenomen.
 
 1. Beheer je lijst in het ouderscherm.
-2. Instellingen → **📤 videos.json maken**.
-3. Vervang `videos.json` in deze repo door het gedownloade bestand en commit.
+2. Instellingen → **📤 videos.json maken** (landt in je map Downloads).
+3. Dubbelklik op **`Lijst publiceren.cmd`**: dat zet het bestand in de repo, commit en pusht.
+   (Handmatig mag ook: `videos.json` vervangen en committen.)
+
+Na ongeveer een minuut staat de lijst online. Apparaten halen hem op bij het openen van de
+app, zodra de app weer naar voren komt, of direct via **🔄 Nu ophalen** in het ouderscherm.
+De app vraagt het bestand met een unieke URL op, zodat GitHub's cache van 10 minuten
+je niet in de weg zit.
 
 Video's die je op één apparaat toevoegt blijven daar staan (in het ouderscherm gemarkeerd als
 *alleen hier*) totdat je ze via stap 2 en 3 in de repo zet. Favorieten, kijktijd en pincode
@@ -74,6 +80,7 @@ referrer (Error 153). Gebruik dus altijd het startbestand.
 | `videos.json` | Gedeelde lijst voor alle apparaten |
 | `manifest.json`, `sw.js` | Installeerbaar als app, werkt offline |
 | `KidsTube starten.cmd`, `kidstube-server.ps1` | Lokaal starten op Windows |
+| `Lijst publiceren.cmd`, `kidstube-publiceren.ps1` | Lijst uit Downloads publiceren naar GitHub |
 | `icon-*.png`, `kidstube.ico` | Iconen |
 
 ## Privacy

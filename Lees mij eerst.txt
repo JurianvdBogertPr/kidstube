@@ -28,17 +28,26 @@ schermvullende app met het KidsTube-icoon, zonder adresbalk.
 
 De lijst delen tussen pc en telefoon:
 1. Beheer je video's in het ouderscherm (op de pc).
-2. Instellingen → "📤 videos.json maken".
-3. Zet dat bestand in de GitHub-repo (vervang het bestaande videos.json).
+2. Instellingen -> "videos.json maken" (het bestand komt in je map Downloads).
+3. Dubbelklik op "Lijst publiceren.cmd" in de KidsTube-map.
+   Dat zet het bestand in de repo en stuurt het naar GitHub.
+
+Na ongeveer een minuut staat de nieuwe lijst online. Je apparaten pakken hem op:
+- bij het openen van de app
+- zodra je de app weer naar voren haalt
+- of direct met de knop "Nu ophalen" in het ouderscherm
 
 Elk apparaat is daarna exact gelijk aan videos.json: toevoegingen,
-naamswijzigingen én verwijderingen gaan mee. Favorieten, kijktijd en
+naamswijzigingen en verwijderingen gaan mee. Favorieten, kijktijd en
 pincode blijven per apparaat.
 
-Video's die je op één apparaat toevoegt staan in het ouderscherm als
-"alleen hier". Ze blijven staan tot je ze via stap 2 en 3 in de repo zet.
-Wil je het anders? Instellingen → "Gedeelde lijst": Leidend (standaard),
+Video's die je op een apparaat toevoegt staan in het ouderscherm als
+"alleen hier". Ze blijven staan tot je ze via stap 2 en 3 publiceert.
+Wil je het anders? Instellingen -> "Gedeelde lijst": Leidend (standaard),
 Alleen aanvullen, of Negeren.
+
+Zie je de wijziging nog niet? Dan staat hij bijna altijd nog niet in de
+repo (stap 3 vergeten), of GitHub is nog bezig met bijwerken.
 
 Zoeken werkt online alleen met een gratis YouTube API-sleutel
 (Instellingen → YouTube API-sleutel). Thuis via het startbestand
