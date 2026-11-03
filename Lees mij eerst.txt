@@ -20,7 +20,7 @@ blokkeert afspelen dan (Error 153). Gebruik altijd het startbestand.
 ONLINE EN OP DE TELEFOON
 De app staat ook online:
 
-    https://jurianvdbogert.github.io/kidstube/
+    https://jurianvdbogertpr.github.io/kidstube/
 
 Op de telefoon: open dat adres en kies in het browsermenu
 "Toevoegen aan beginscherm" / "App installeren". Je krijgt dan een
