@@ -501,11 +501,14 @@
         <hr style="border:none;border-top:2px solid var(--line);margin:22px 0" />
 
         <label class="field"><span>Gedeelde lijst (videos.json uit je repo)</span>
-          <select id="sharedMode" style="max-width:420px">
-            <option value="mirror">Leidend – overal exact dezelfde lijst</option>
-            <option value="merge">Alleen aanvullen – nieuwe video's erbij, niets verwijderen</option>
-            <option value="off">Negeren – dit apparaat regelt zijn eigen lijst</option>
-          </select>
+          <div class="row">
+            <select id="sharedMode" style="flex:1;min-width:220px;max-width:420px">
+              <option value="mirror">Leidend – overal exact dezelfde lijst</option>
+              <option value="merge">Alleen aanvullen – nieuwe video's erbij, niets verwijderen</option>
+              <option value="off">Negeren – dit apparaat regelt zijn eigen lijst</option>
+            </select>
+            <button class="btn sec" id="syncBtn">🔄 Nu ophalen</button>
+          </div>
         </label>
         <p class="note" id="sharedNote"></p>
 
@@ -573,6 +576,7 @@ const DEFAULTS = {
   theme: "light",
   apiKey: "",
   sharedRev: 0,
+  sharedAt: 0,
   sharedMode: "mirror",
   limitEnabled: true,
   limitMin: 30,
@@ -1451,9 +1455,10 @@ function renderSettings(){
   $("#sharedMode").value = S.sharedMode || "mirror";
   const lokaal = S.videos.filter(v => v.src !== "shared").length;
   const gedeeld = S.videos.length - lokaal;
+  const opgehaald = S.sharedAt ? new Date(S.sharedAt).toLocaleString("nl-NL", {hour:"2-digit", minute:"2-digit", day:"numeric", month:"short"}) : "nog niet";
   $("#sharedNote").textContent = {
-    mirror: `Leidend: videos.json bepaalt de lijst, op elk apparaat hetzelfde. Nu: ${gedeeld} gedeeld, ${lokaal} alleen op dit apparaat. Voeg je hier video's toe? Maak dan een nieuwe videos.json en zet die in je repo, anders blijven ze lokaal.`,
-    merge: `Alleen aanvullen: nieuwe video's uit videos.json komen erbij, verwijderingen en wijzigingen niet. Nu: ${gedeeld} gedeeld, ${lokaal} alleen op dit apparaat.`,
+    mirror: `Leidend: videos.json bepaalt de lijst, op elk apparaat hetzelfde. Nu: ${gedeeld} gedeeld, ${lokaal} alleen op dit apparaat. Laatst opgehaald: ${opgehaald}. Voeg je hier video's toe? Maak dan een nieuwe videos.json en zet die in je repo, anders blijven ze lokaal.`,
+    merge: `Alleen aanvullen: nieuwe video's uit videos.json komen erbij, verwijderingen en wijzigingen niet. Nu: ${gedeeld} gedeeld, ${lokaal} alleen op dit apparaat. Laatst opgehaald: ${opgehaald}.`,
     off: `Negeren: dit apparaat houdt zijn eigen lijst van ${S.videos.length} video's.`
   }[S.sharedMode || "mirror"];
   if(staatAlsApp){
@@ -1491,10 +1496,18 @@ $("#sharedMode").onchange = async () => {
   save();
   if(isWeb && S.sharedMode !== "off"){
     if(S.sharedMode === "merge") S.sharedRev = 0;  /* opnieuw ophalen */
-    await loadShared();
+    await loadShared(true);
   }
   renderSettings(); renderVList();
   toast("Instelling opgeslagen");
+};
+
+$("#syncBtn").onclick = async () => {
+  if(!isWeb) return toast("Werkt alleen via het webadres of het startbestand");
+  $("#syncBtn").disabled = true;
+  await loadShared();
+  renderSettings(); renderVList();
+  $("#syncBtn").disabled = false;
 };
 
 $("#shareBtn").onclick = () => {
@@ -1626,42 +1639,54 @@ function aanvullenLijst(d){
   return { toegevoegd, gewijzigd:0, verwijderd:0, lokaal:0 };
 }
 
-async function loadShared(){
+async function loadShared(stil){
   const modus = S.sharedMode || "mirror";
-  if(modus === "off") return;
+  if(modus === "off") return { over: true };
   try{
-    const r = await fetch("videos.json", { cache: "no-store" });
-    if(!r.ok) return;
+    /* unieke URL: anders serveert GitHub tot 10 minuten een oude versie */
+    const r = await fetch("videos.json?v=" + Date.now(), { cache: "no-store" });
+    if(!r.ok) return { fout: true };
     const d = await r.json();
-    if(!d || !Array.isArray(d.videos)) return;
+    if(!d || !Array.isArray(d.videos)) return { fout: true };
     const rev = Number(d.rev) || 0;
 
     let res;
     if(modus === "merge"){
-      if(rev <= (S.sharedRev || 0)) return;
+      if(rev <= (S.sharedRev || 0)) return { geenNieuws: true };
       res = aanvullenLijst(d);
     }else{
       res = spiegelLijst(d);
     }
 
     S.sharedRev = rev;
+    S.sharedAt = Date.now();
     save();
     renderCats(); renderGrid();
-    if($("#parentOverlay").classList.contains("show")) renderVList();
+    if($("#parentOverlay").classList.contains("show")){ renderVList(); renderSettings(); }
 
     const delen = [];
     if(res.toegevoegd) delen.push(res.toegevoegd + " nieuw");
     if(res.gewijzigd) delen.push(res.gewijzigd + " bijgewerkt");
     if(res.verwijderd) delen.push(res.verwijderd + " verwijderd");
     if(delen.length) toast("Lijst bijgewerkt: " + delen.join(", ") + " ✨");
-  }catch(e){ /* geen gedeelde lijst bereikbaar */ }
+    else if(!stil) toast("Lijst is al bij 👍");
+    return { aantal: delen.length };
+  }catch(e){
+    if(!stil) toast("Lijst ophalen lukte niet 😕");
+    return { fout: true };
+  }
 }
+
+/* Opnieuw ophalen zodra de app weer op de voorgrond komt */
+document.addEventListener("visibilitychange", () => {
+  if(!document.hidden && isWeb && !$("#player").classList.contains("show")) loadShared(true);
+});
 
 /* ---------------- Start ---------------- */
 setInterval(() => { rollDay(); renderTime(); }, 30000);
 renderCats(); renderGrid(); renderTime();
 if(!isWeb) setTimeout(() => toast("Tip: start via “KidsTube starten.cmd” 🚀"), 900);
-if(isWeb) loadShared();
+if(isWeb) loadShared(true);
 if("serviceWorker" in navigator && location.protocol === "https:"){
   const hadController = !!navigator.serviceWorker.controller;
   let herladen = false;
