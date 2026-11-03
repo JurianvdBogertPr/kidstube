@@ -1571,6 +1571,13 @@ renderCats(); renderGrid(); renderTime();
 if(!isWeb) setTimeout(() => toast("Tip: start via “KidsTube starten.cmd” 🚀"), 900);
 if(isWeb) loadShared();
 if("serviceWorker" in navigator && location.protocol === "https:"){
+  const hadController = !!navigator.serviceWorker.controller;
+  let herladen = false;
+  navigator.serviceWorker.addEventListener("controllerchange", () => {
+    if(!hadController || herladen) return;
+    herladen = true;
+    location.reload();
+  });
   window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(()=>{}));
 }
 })();
