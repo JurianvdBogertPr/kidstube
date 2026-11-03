@@ -1,11 +1,12 @@
 {
-  "rev": 1793720260087,
+  "rev": 1793720775533,
   "cats": [
     { "id": "verhalen", "name": "Verhalen", "emo": "🧸", "color": "#a259ff" },
-    { "id": "muziek", "name": "Muziek", "emo": "🎵", "color": "#ff5fa2" }
+    { "id": "dieren", "name": "Dieren", "emo": "🐶", "color": "#22b07d" }
   ],
   "videos": [
     { "yt": "aqz-KE-bpKQ", "title": "Big Buck Bunny", "cat": "verhalen" },
-    { "yt": "eRsGyueVLvQ", "title": "Sintel", "cat": "verhalen" }
+    { "yt": "eRsGyueVLvQ", "title": "Sintel", "cat": "verhalen" },
+    { "yt": "mHrHLqQj7Ts", "title": "Testvideo via publiceerknop", "cat": "dieren" }
   ]
 }
