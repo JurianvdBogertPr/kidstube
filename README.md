@@ -28,14 +28,27 @@ In het ouderscherm staat onder Instellingen ook een knop **📲 App installeren*
 
 ### Lijst delen tussen apparaten
 
-`videos.json` in deze repo is de gedeelde lijst. Elk apparaat haalt hem op en voegt
-nieuwe video's toe zonder lokale favorieten of eigen video's te wissen.
+`videos.json` in deze repo is de **gedeelde lijst en de bron van waarheid**. Standaard staat
+elk apparaat op *Leidend*: na het openen van de app is de lijst exact gelijk aan `videos.json`
+— ook verwijderde video's, gewijzigde titels en categorieën worden overgenomen.
 
 1. Beheer je lijst in het ouderscherm.
 2. Instellingen → **📤 videos.json maken**.
 3. Vervang `videos.json` in deze repo door het gedownloade bestand en commit.
 
-Het veld `rev` moet omhoog bij elke wijziging; de exportknop zet daar automatisch
+Video's die je op één apparaat toevoegt blijven daar staan (in het ouderscherm gemarkeerd als
+*alleen hier*) totdat je ze via stap 2 en 3 in de repo zet. Favorieten, kijktijd en pincode
+blijven altijd per apparaat.
+
+In Instellingen kun je dit per apparaat aanpassen:
+
+| Stand | Gedrag |
+|---|---|
+| **Leidend** (standaard) | `videos.json` bepaalt de lijst: toevoegen, wijzigen én verwijderen |
+| Alleen aanvullen | Nieuwe video's komen erbij, er wordt nooit iets verwijderd |
+| Negeren | Dit apparaat houdt zijn eigen lijst |
+
+Het veld `rev` hoort bij elke wijziging omhoog te gaan; de exportknop zet daar automatisch
 een tijdstempel in.
 
 ### Zoeken online

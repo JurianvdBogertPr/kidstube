@@ -500,6 +500,17 @@
 
         <hr style="border:none;border-top:2px solid var(--line);margin:22px 0" />
 
+        <label class="field"><span>Gedeelde lijst (videos.json uit je repo)</span>
+          <select id="sharedMode" style="max-width:420px">
+            <option value="mirror">Leidend – overal exact dezelfde lijst</option>
+            <option value="merge">Alleen aanvullen – nieuwe video's erbij, niets verwijderen</option>
+            <option value="off">Negeren – dit apparaat regelt zijn eigen lijst</option>
+          </select>
+        </label>
+        <p class="note" id="sharedNote"></p>
+
+        <hr style="border:none;border-top:2px solid var(--line);margin:22px 0" />
+
         <span style="font-weight:800;font-size:.95rem">Op dit apparaat installeren</span>
         <div class="row" style="margin-top:8px">
           <button class="btn" id="installBtn" style="display:none">📲 App installeren</button>
@@ -562,6 +573,7 @@ const DEFAULTS = {
   theme: "light",
   apiKey: "",
   sharedRev: 0,
+  sharedMode: "mirror",
   limitEnabled: true,
   limitMin: 30,
   bonusMin: 0,
@@ -1346,7 +1358,7 @@ function renderVList(){
     return `<div class="litem">
       <input type="checkbox" data-sel="${v.id}" ${aan?"checked":""} aria-label="Selecteren" />
       <img src="${thumb(v.yt)}" alt="">
-      <div class="info"><b>${esc(v.title)}</b><small>${cat?cat.emo+" "+esc(cat.name):"geen categorie"} · ${esc(v.yt)}</small></div>
+      <div class="info"><b>${esc(v.title)}</b><small>${cat?cat.emo+" "+esc(cat.name):"geen categorie"} · ${v.src === "shared" ? "gedeeld" : "alleen hier"}</small></div>
       <button class="mini" data-up="${v.id}" ${i===0?"disabled":""} title="Omhoog">⬆️</button>
       <button class="mini" data-down="${v.id}" ${i===S.videos.length-1?"disabled":""} title="Omlaag">⬇️</button>
       <button class="mini" data-edit="${v.id}" title="Bewerken">✏️</button>
@@ -1436,6 +1448,14 @@ function renderCList(){
 /* instellingen */
 function renderSettings(){
   $("#apiKey").value = S.apiKey || "";
+  $("#sharedMode").value = S.sharedMode || "mirror";
+  const lokaal = S.videos.filter(v => v.src !== "shared").length;
+  const gedeeld = S.videos.length - lokaal;
+  $("#sharedNote").textContent = {
+    mirror: `Leidend: videos.json bepaalt de lijst, op elk apparaat hetzelfde. Nu: ${gedeeld} gedeeld, ${lokaal} alleen op dit apparaat. Voeg je hier video's toe? Maak dan een nieuwe videos.json en zet die in je repo, anders blijven ze lokaal.`,
+    merge: `Alleen aanvullen: nieuwe video's uit videos.json komen erbij, verwijderingen en wijzigingen niet. Nu: ${gedeeld} gedeeld, ${lokaal} alleen op dit apparaat.`,
+    off: `Negeren: dit apparaat houdt zijn eigen lijst van ${S.videos.length} video's.`
+  }[S.sharedMode || "mirror"];
   if(staatAlsApp){
     $("#installBtn").style.display = "none";
     $("#installNote").textContent = "KidsTube draait al als app op dit apparaat 🎉";
@@ -1464,6 +1484,17 @@ $("#saveKey").onclick = () => {
   S.apiKey = $("#apiKey").value.trim();
   save();
   toast(S.apiKey ? "API-sleutel opgeslagen 🔑" : "API-sleutel gewist");
+};
+
+$("#sharedMode").onchange = async () => {
+  S.sharedMode = $("#sharedMode").value;
+  save();
+  if(isWeb && S.sharedMode !== "off"){
+    if(S.sharedMode === "merge") S.sharedRev = 0;  /* opnieuw ophalen */
+    await loadShared();
+  }
+  renderSettings(); renderVList();
+  toast("Instelling opgeslagen");
 };
 
 $("#shareBtn").onclick = () => {
@@ -1534,35 +1565,96 @@ $("#installBtn").onclick = async () => {
 };
 
 /* ---------------- Gedeelde lijst (videos.json) ---------------- */
+function catUitBestand(v){
+  return (v.cat && S.cats.some(c => c.id === v.cat)) ? v.cat : S.cats[0].id;
+}
+
+/* Vult categorieën aan/bij vanuit het gedeelde bestand */
+function catsBijwerken(cats){
+  (cats || []).forEach(c => {
+    if(!c || !c.id) return;
+    const bestaand = S.cats.find(x => x.id === c.id);
+    if(bestaand){
+      bestaand.name = c.name || bestaand.name;
+      bestaand.emo = c.emo || bestaand.emo;
+      bestaand.color = c.color || bestaand.color;
+    }else{
+      S.cats.push({ id:c.id, name:c.name || c.id, emo:c.emo || "⭐", color:c.color || "#5b5bf6" });
+    }
+  });
+}
+
+/* "Leidend": de lijst uit de repo is de waarheid. Video's die je zelf op dit
+   apparaat toevoegde blijven staan tot je ze ook in videos.json zet. */
+function spiegelLijst(d){
+  catsBijwerken(d.cats);
+  const binnen = d.videos.filter(v => v && /^[A-Za-z0-9_-]{11}$/.test(v.yt || ""));
+  const binnenIds = new Set(binnen.map(v => v.yt));
+
+  let toegevoegd = 0, gewijzigd = 0;
+  const gedeeld = binnen.map(v => {
+    const bestaand = S.videos.find(x => x.yt === v.yt);
+    const cat = catUitBestand(v);
+    if(bestaand){
+      if(bestaand.title !== (v.title || bestaand.title) || bestaand.cat !== cat) gewijzigd++;
+      bestaand.title = v.title || bestaand.title;
+      bestaand.cat = cat;
+      bestaand.src = "shared";
+      return bestaand;
+    }
+    toegevoegd++;
+    return { id:uid(), yt:v.yt, title:v.title || "Video", cat, fav:false, added:Date.now(), src:"shared" };
+  });
+
+  const verwijderd = S.videos.filter(v => v.src === "shared" && !binnenIds.has(v.yt)).length;
+  const lokaal = S.videos.filter(v => v.src !== "shared" && !binnenIds.has(v.yt));
+
+  S.videos = gedeeld.concat(lokaal);
+  return { toegevoegd, gewijzigd, verwijderd, lokaal: lokaal.length };
+}
+
+/* "Alleen aanvullen": nieuwe video's erbij, nooit iets weghalen */
+function aanvullenLijst(d){
+  catsBijwerken(d.cats);
+  let toegevoegd = 0;
+  d.videos.forEach(v => {
+    if(!v || !/^[A-Za-z0-9_-]{11}$/.test(v.yt || "")) return;
+    if(S.videos.some(x => x.yt === v.yt)) return;
+    S.videos.push({ id:uid(), yt:v.yt, title:v.title || "Video", cat:catUitBestand(v), fav:false, added:Date.now(), src:"shared" });
+    toegevoegd++;
+  });
+  return { toegevoegd, gewijzigd:0, verwijderd:0, lokaal:0 };
+}
+
 async function loadShared(){
+  const modus = S.sharedMode || "mirror";
+  if(modus === "off") return;
   try{
     const r = await fetch("videos.json", { cache: "no-store" });
     if(!r.ok) return;
     const d = await r.json();
     if(!d || !Array.isArray(d.videos)) return;
     const rev = Number(d.rev) || 0;
-    if(rev <= (S.sharedRev || 0)) return;
 
-    (d.cats || []).forEach(c => {
-      if(c && c.id && !S.cats.some(x => x.id === c.id)){
-        S.cats.push({ id:c.id, name:c.name || c.id, emo:c.emo || "⭐", color:c.color || "#5b5bf6" });
-      }
-    });
-
-    let n = 0;
-    d.videos.forEach(v => {
-      if(!v || !/^[A-Za-z0-9_-]{11}$/.test(v.yt || "")) return;
-      if(S.videos.some(x => x.yt === v.yt)) return;
-      const cat = (v.cat && S.cats.some(c => c.id === v.cat)) ? v.cat : S.cats[0].id;
-      S.videos.push({ id:uid(), yt:v.yt, title:v.title || "Video", cat, fav:false, added:Date.now() });
-      n++;
-    });
+    let res;
+    if(modus === "merge"){
+      if(rev <= (S.sharedRev || 0)) return;
+      res = aanvullenLijst(d);
+    }else{
+      res = spiegelLijst(d);
+    }
 
     S.sharedRev = rev;
     save();
     renderCats(); renderGrid();
-    if(n) toast(n + (n === 1 ? " nieuwe video opgehaald ✨" : " nieuwe video's opgehaald ✨"));
-  }catch(e){ /* geen gedeelde lijst aanwezig */ }
+    if($("#parentOverlay").classList.contains("show")) renderVList();
+
+    const delen = [];
+    if(res.toegevoegd) delen.push(res.toegevoegd + " nieuw");
+    if(res.gewijzigd) delen.push(res.gewijzigd + " bijgewerkt");
+    if(res.verwijderd) delen.push(res.verwijderd + " verwijderd");
+    if(delen.length) toast("Lijst bijgewerkt: " + delen.join(", ") + " ✨");
+  }catch(e){ /* geen gedeelde lijst bereikbaar */ }
 }
 
 /* ---------------- Start ---------------- */

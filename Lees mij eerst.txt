@@ -30,8 +30,15 @@ De lijst delen tussen pc en telefoon:
 1. Beheer je video's in het ouderscherm (op de pc).
 2. Instellingen → "📤 videos.json maken".
 3. Zet dat bestand in de GitHub-repo (vervang het bestaande videos.json).
-Elk apparaat haalt de lijst daarna automatisch op; eigen favorieten en
-zelf toegevoegde video's blijven staan.
+
+Elk apparaat is daarna exact gelijk aan videos.json: toevoegingen,
+naamswijzigingen én verwijderingen gaan mee. Favorieten, kijktijd en
+pincode blijven per apparaat.
+
+Video's die je op één apparaat toevoegt staan in het ouderscherm als
+"alleen hier". Ze blijven staan tot je ze via stap 2 en 3 in de repo zet.
+Wil je het anders? Instellingen → "Gedeelde lijst": Leidend (standaard),
+Alleen aanvullen, of Negeren.
 
 Zoeken werkt online alleen met een gratis YouTube API-sleutel
 (Instellingen → YouTube API-sleutel). Thuis via het startbestand
