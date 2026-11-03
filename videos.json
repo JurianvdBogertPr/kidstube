@@ -1,11 +1,11 @@
 {
-  "rev": 1,
+  "rev": 1793720260087,
   "cats": [
-    { "id": "muziek", "name": "Muziek", "emo": "🎵", "color": "#ff5fa2" },
-    { "id": "dieren", "name": "Dieren", "emo": "🐶", "color": "#22b07d" },
-    { "id": "leren", "name": "Leren", "emo": "📚", "color": "#13b7d6" },
     { "id": "verhalen", "name": "Verhalen", "emo": "🧸", "color": "#a259ff" },
-    { "id": "knutselen", "name": "Knutselen", "emo": "🎨", "color": "#ff9f1a" }
+    { "id": "muziek", "name": "Muziek", "emo": "🎵", "color": "#ff5fa2" }
   ],
-  "videos": []
+  "videos": [
+    { "yt": "aqz-KE-bpKQ", "title": "Big Buck Bunny", "cat": "verhalen" },
+    { "yt": "eRsGyueVLvQ", "title": "Sintel", "cat": "verhalen" }
+  ]
 }
