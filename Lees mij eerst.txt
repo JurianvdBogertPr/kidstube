@@ -1,0 +1,102 @@
+KidsTube – veilig YouTube kijken voor kinderen
+==============================================
+
+WAT IS HET?
+Een app die alleen de video's toont die jij als ouder hebt goedgekeurd.
+Geen zoekfunctie, geen aanbevelingen, geen reacties, geen doorklikken
+naar YouTube. Kinderen zien alleen grote plaatjes om op te tikken.
+
+
+STARTEN
+1. Dubbelklik op "KidsTube starten.cmd".
+2. Er opent een zwart venster (de kleine server). Laat dit openstaan.
+3. KidsTube opent vanzelf in een venster zonder adresbalk en tabbladen.
+4. Klaar met kijken? Sluit het zwarte venster.
+
+Let op: dubbelklikken op "kidstube.html" werkt niet goed – YouTube
+blokkeert afspelen dan (Error 153). Gebruik altijd het startbestand.
+
+
+VIDEO'S TOEVOEGEN (OUDER)
+1. Klik rechtsboven op het slotje 🔒.
+2. Voer de pincode in. Standaard is dat: 1234
+3. Plak een YouTube-link in het veld en klik op "Toevoegen".
+   De titel wordt automatisch opgehaald; je mag hem aanpassen.
+4. Kies een categorie. Met ✏️ pas je een video aan, met 🗑️ verwijder je hem,
+   met ⬆️/⬇️ bepaal je de volgorde.
+
+Tip: verander de pincode meteen bij Instellingen → Nieuwe pincode.
+
+
+MEERDERE VIDEO'S TEGELIJK VERWIJDEREN
+In het tabblad "Video's" heeft elke regel een vinkvakje.
+- Vink aan wat weg mag en klik op "🗑️ ... verwijderen".
+- Met "☑️ Alles selecteren" vink je in één keer alles aan; de knop wordt dan
+  "⬜ Selectie wissen" om de selectie weer ongedaan te maken.
+Je krijgt altijd eerst een bevestigingsvraag.
+
+
+ZOEKEN OP YOUTUBE (tabblad "Zoeken")
+1. Typ waar je naar zoekt en klik op "Zoeken" (of druk op Enter).
+2. Je ziet de resultaten met plaatje, kanaal en speelduur. Zoeken gebeurt
+   met YouTube's beperkte modus aan.
+3. Vink aan wat je goedkeurt, kies een categorie en klik op "➕ ... toevoegen".
+Video's die je al hebt staan grijs met "staat al in de lijst".
+
+Het kind ziet niets van het zoeken: resultaten verschijnen alleen in het
+ouderscherm en komen pas in beeld als jij ze toevoegt.
+Zoeken werkt alleen als de app via "KidsTube starten.cmd" draait.
+
+
+EEN HELE LIJST IN ÉÉN KEER (tabblad "Lijst")
+1. Plak de link van een YouTube-playlist, bijvoorbeeld
+   https://www.youtube.com/playlist?list=PL....  Klik op "Ophalen".
+2. De video's verschijnen met plaatje en titel. Alles staat aangevinkt;
+   vink uit wat je kind niet mag zien. ("Alles aan/uit" keert alles om.)
+   Video's die je al had staan automatisch uitgevinkt met "staat al in de lijst".
+3. Kies een categorie en klik op "➕ ... toevoegen".
+
+Je kunt ook meerdere losse links tegelijk plakken (één per regel) en op
+"Links inlezen" klikken. Regels die geen YouTube-link zijn blijven staan.
+
+Let op:
+- De playlist moet openbaar of 'verborgen' zijn, niet privé.
+- YouTube levert maximaal 200 video's per lijst.
+- Het ophalen van de titels duurt bij grote lijsten even; dat zie je in beeld.
+
+
+CATEGORIEËN
+Tabblad "Categorieën": maak eigen thema's met een eigen icoon en kleur,
+bijvoorbeeld Dinosaurussen 🦕 of Knutselen 🎨. Categorieën zonder video's
+worden niet aan het kind getoond.
+
+
+KIJKTIJD
+Tabblad "Instellingen": zet een limiet per dag (standaard 30 minuten).
+Rechtsboven ziet het kind hoeveel tijd er nog over is. Is de tijd op,
+dan verschijnt "Klaar voor vandaag!". Je kunt als ouder 15 minuten extra
+geven of de teller op 0 zetten. Elke dag begint de teller opnieuw.
+De tijd loopt alleen terwijl een video echt speelt.
+
+
+FAVORIETEN
+Het kind kan op de ster ☆ tikken. Favorieten krijgen een eigen tabje ⭐.
+
+
+DONKERE MODUS
+Met de knop 🌙 / ☀️ rechtsboven.
+
+
+BACK-UP
+Instellingen → Exporteren maakt een bestand met al je video's en
+instellingen. Met Importeren zet je dat terug, ook op een ander apparaat.
+Alles wordt lokaal in de browser bewaard; er gaat niets naar een server
+van ons. Maak dus een back-up voordat je browsergegevens wist.
+
+
+GOED OM TE WETEN
+- Sommige makers staan afspelen buiten YouTube niet toe. Zo'n video geeft
+  een vriendelijke melding. Kies dan een andere video.
+- De kijktijd en de lijst gelden per apparaat en per browser.
+- Wil je het nog beslotener? Gebruik in Windows een apart kinderaccount
+  en zet KidsTube daar in de map "Opstarten".

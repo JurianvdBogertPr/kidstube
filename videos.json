@@ -1,0 +1,11 @@
+{
+  "rev": 1,
+  "cats": [
+    { "id": "muziek", "name": "Muziek", "emo": "🎵", "color": "#ff5fa2" },
+    { "id": "dieren", "name": "Dieren", "emo": "🐶", "color": "#22b07d" },
+    { "id": "leren", "name": "Leren", "emo": "📚", "color": "#13b7d6" },
+    { "id": "verhalen", "name": "Verhalen", "emo": "🧸", "color": "#a259ff" },
+    { "id": "knutselen", "name": "Knutselen", "emo": "🎨", "color": "#ff9f1a" }
+  ],
+  "videos": []
+}

@@ -1,0 +1,1541 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#5b5bf6" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="KidsTube" />
+<link rel="manifest" href="manifest.json" />
+<title>KidsTube – Veilig video's kijken</title>
+<link rel="icon" type="image/png" sizes="256x256" href="data:image/png;base64,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" />
+<link rel="apple-touch-icon" href="icon-192.png" />
+<style>
+  :root{
+    --bg:#f3f6ff;
+    --bg2:#ffffff;
+    --card:#ffffff;
+    --text:#1d2440;
+    --muted:#6b7394;
+    --line:#e3e8f7;
+    --accent:#5b5bf6;
+    --accent2:#ff5fa2;
+    --ok:#22b07d;
+    --warn:#ff9f1a;
+    --danger:#ef4444;
+    --shadow:0 10px 30px rgba(35,45,100,.10);
+    --radius:22px;
+  }
+  html[data-theme="dark"]{
+    --bg:#121425;
+    --bg2:#1a1d33;
+    --card:#1e2240;
+    --text:#f0f2ff;
+    --muted:#a3abd2;
+    --line:#2d3257;
+    --shadow:0 10px 30px rgba(0,0,0,.45);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family:"Baloo 2","Comic Sans MS",Segoe UI,system-ui,-apple-system,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    -webkit-tap-highlight-color:transparent;
+  }
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  input,select{font-family:inherit}
+
+  /* ---------- Layout ---------- */
+  .app{min-height:100%;display:flex;flex-direction:column}
+  header.top{
+    display:flex;align-items:center;gap:12px;
+    padding:14px 18px;
+    background:var(--bg2);
+    border-bottom:3px solid var(--line);
+    position:sticky;top:0;z-index:20;
+  }
+  .logo{display:flex;align-items:center;gap:10px;font-size:1.5rem;font-weight:800;letter-spacing:.3px}
+  .logo .mark{
+    width:44px;height:44px;border-radius:14px;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    display:grid;place-items:center;color:#fff;font-size:1.3rem;
+    box-shadow:var(--shadow);
+  }
+  .spacer{flex:1}
+  .pill{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:10px 16px;border-radius:999px;
+    background:var(--bg);border:2px solid var(--line);
+    font-weight:700;font-size:.95rem;color:var(--text);
+  }
+  .pill.clickable:hover{border-color:var(--accent)}
+  .pill.warn{background:#fff3e0;border-color:#ffd9a1;color:#8a5200}
+  html[data-theme="dark"] .pill.warn{background:#3a2c14;border-color:#6b4d1c;color:#ffd9a1}
+
+  .iconbtn{
+    width:48px;height:48px;border-radius:16px;
+    background:var(--bg);border:2px solid var(--line);
+    display:grid;place-items:center;font-size:1.35rem;
+  }
+  .iconbtn:hover{border-color:var(--accent)}
+
+  /* ---------- Categorieën ---------- */
+  .cats{
+    display:flex;gap:10px;overflow-x:auto;padding:14px 18px 6px;
+    scrollbar-width:none;
+  }
+  .cats::-webkit-scrollbar{display:none}
+  .cat{
+    flex:0 0 auto;display:flex;align-items:center;gap:8px;
+    padding:12px 18px;border-radius:999px;
+    background:var(--card);border:3px solid var(--line);
+    font-weight:800;font-size:1.02rem;white-space:nowrap;
+    box-shadow:var(--shadow);
+  }
+  .cat .emo{font-size:1.25rem}
+  .cat.active{border-color:transparent;color:#fff}
+
+  /* ---------- Grid ---------- */
+  main{padding:14px 18px 40px;flex:1}
+  .grid{
+    display:grid;gap:18px;
+    grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+  }
+  .vcard{
+    background:var(--card);border-radius:var(--radius);
+    overflow:hidden;box-shadow:var(--shadow);
+    border:3px solid transparent;text-align:left;
+    display:flex;flex-direction:column;position:relative;
+    transition:transform .12s ease, border-color .12s ease;
+  }
+  .vcard:hover,.vcard:focus-visible{transform:translateY(-4px);border-color:var(--accent);outline:none}
+  .thumbwrap{position:relative;aspect-ratio:16/9;background:#000}
+  .thumbwrap img{width:100%;height:100%;object-fit:cover;display:block}
+  .play{
+    position:absolute;inset:0;display:grid;place-items:center;
+    background:linear-gradient(to top,rgba(0,0,0,.35),rgba(0,0,0,0) 55%);
+    font-size:3rem;color:#fff;text-shadow:0 4px 14px rgba(0,0,0,.5);
+    opacity:.92;
+  }
+  .vtitle{padding:12px 14px 14px;font-weight:800;font-size:1.05rem;line-height:1.3}
+  .vmeta{padding:0 14px 12px;color:var(--muted);font-size:.85rem;font-weight:700}
+  .fav{
+    position:absolute;top:10px;right:10px;z-index:2;
+    width:44px;height:44px;border-radius:50%;
+    background:rgba(0,0,0,.45);color:#fff;font-size:1.3rem;
+    display:grid;place-items:center;backdrop-filter:blur(4px);
+  }
+  .fav.on{background:#ffcc33;color:#7a4b00}
+
+  .empty{
+    text-align:center;padding:60px 20px;color:var(--muted);
+  }
+  .empty .big{font-size:4rem}
+  .empty h2{color:var(--text);margin:.4em 0}
+
+  /* ---------- Speler ---------- */
+  .player{
+    position:fixed;inset:0;background:#05060f;z-index:60;
+    display:none;flex-direction:column;
+  }
+  .player.show{display:flex}
+  .playerbar{
+    display:flex;align-items:center;gap:12px;padding:12px 16px;color:#fff;
+    background:#0b0d1c;
+  }
+  .playerbar .t{font-weight:800;font-size:1.05rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .backbtn{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--accent);color:#fff;font-weight:800;
+    padding:12px 20px;border-radius:999px;font-size:1rem;
+  }
+  .stage{flex:1;position:relative;background:#000;overflow:hidden}
+  .stage iframe,.stage #ytplayer{position:absolute;inset:0;width:100%;height:100%;border:0}
+  /* Kinderen kunnen niet in de YouTube-speler klikken (geen suggesties/links) */
+  .stage.locked iframe{pointer-events:none}
+  .stage.locked::after{content:"";position:absolute;inset:0}
+
+  .controls{
+    display:none;align-items:center;gap:14px;
+    padding:14px 18px calc(14px + env(safe-area-inset-bottom));
+    background:#0b0d1c;color:#fff;
+  }
+  .controls.show{display:flex}
+  .cbtn{
+    width:58px;height:58px;border-radius:50%;flex:0 0 auto;
+    background:var(--accent);color:#fff;font-size:1.5rem;display:grid;place-items:center;
+  }
+  .cbtn.sec{background:#222749;font-size:1.25rem;width:50px;height:50px}
+  .ctime{font-weight:800;font-size:.95rem;min-width:46px;text-align:center}
+  #seek{
+    flex:1;height:10px;accent-color:#5b5bf6;cursor:pointer;
+  }
+  .playererr{
+    position:absolute;inset:0;display:none;place-content:center;text-align:center;
+    background:#0b0d1c;color:#fff;padding:30px;
+  }
+  .playererr.show{display:grid}
+  .playererr h3{font-size:1.5rem;margin:.2em 0}
+  .playererr p{color:#a3abd2;font-weight:700;max-width:520px;margin:.4em auto}
+
+  /* ---------- Modals ---------- */
+  .overlay{
+    position:fixed;inset:0;background:rgba(12,14,30,.6);
+    backdrop-filter:blur(3px);z-index:70;
+    display:none;align-items:center;justify-content:center;padding:18px;
+  }
+  .overlay.show{display:flex}
+  .modal{
+    background:var(--bg2);color:var(--text);border-radius:26px;
+    width:min(760px,100%);max-height:92vh;overflow:auto;
+    box-shadow:0 30px 70px rgba(0,0,0,.4);
+  }
+  .modal header{
+    display:flex;align-items:center;gap:12px;padding:18px 22px;
+    border-bottom:2px solid var(--line);position:sticky;top:0;background:var(--bg2);z-index:2;
+  }
+  .modal header h2{margin:0;font-size:1.3rem}
+  .modal .body{padding:20px 22px 26px}
+  .closebtn{margin-left:auto;font-size:1.5rem;width:44px;height:44px;border-radius:14px;background:var(--bg);border:2px solid var(--line)}
+
+  label.field{display:block;margin:0 0 14px}
+  label.field span{display:block;font-weight:800;margin-bottom:6px;font-size:.95rem}
+  input[type=text],input[type=number],input[type=password],select,textarea{
+    width:100%;padding:13px 15px;border-radius:14px;
+    border:2px solid var(--line);background:var(--card);color:var(--text);
+    font-size:1rem;font-weight:600;
+  }
+  textarea{font-family:inherit;resize:vertical;line-height:1.4}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent)}
+  .litem input[type=checkbox]{width:24px;height:24px;accent-color:var(--accent);flex:0 0 auto;cursor:pointer}
+  .litem.off{opacity:.45}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:13px 22px;border-radius:14px;font-weight:800;font-size:1rem;
+    background:var(--accent);color:#fff;
+  }
+  .btn.sec{background:var(--bg);color:var(--text);border:2px solid var(--line)}
+  .btn.danger{background:var(--danger);color:#fff}
+  .btn.ok{background:var(--ok);color:#fff}
+  .btn:disabled{opacity:.5;cursor:not-allowed}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+  .tabs{display:flex;gap:8px;padding:0 22px;border-bottom:2px solid var(--line);background:var(--bg2);position:sticky;top:72px;z-index:2}
+  .tab{padding:12px 16px;font-weight:800;border-bottom:4px solid transparent;color:var(--muted)}
+  .tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+
+  .list{display:flex;flex-direction:column;gap:10px;margin-top:6px}
+  .litem{
+    display:flex;gap:12px;align-items:center;
+    background:var(--card);border:2px solid var(--line);border-radius:16px;padding:10px;
+  }
+  .litem img{width:94px;height:53px;object-fit:cover;border-radius:10px;background:#000;flex:0 0 auto}
+  .litem .info{flex:1;min-width:0}
+  .litem .info b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .litem .info small{color:var(--muted);font-weight:700}
+  .mini{width:40px;height:40px;border-radius:12px;background:var(--bg);border:2px solid var(--line);display:grid;place-items:center;font-size:1.05rem}
+  .mini:hover{border-color:var(--accent)}
+  .mini.del:hover{border-color:var(--danger);color:var(--danger)}
+
+  /* pincode */
+  .pinbox{text-align:center;padding:10px 0 4px}
+  .pindots{display:flex;gap:14px;justify-content:center;margin:18px 0 22px}
+  .pindot{width:20px;height:20px;border-radius:50%;border:3px solid var(--line);background:transparent}
+  .pindot.on{background:var(--accent);border-color:var(--accent)}
+  .keys{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:300px;margin:0 auto}
+  .key{
+    padding:18px 0;border-radius:18px;background:var(--card);border:2px solid var(--line);
+    font-size:1.45rem;font-weight:800;
+  }
+  .key:hover{border-color:var(--accent)}
+  .shake{animation:shake .4s}
+  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+
+  .note{background:var(--bg);border:2px dashed var(--line);border-radius:16px;padding:12px 14px;color:var(--muted);font-weight:700;font-size:.92rem}
+  .toast{
+    position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(140%);
+    background:#1d2440;color:#fff;padding:14px 22px;border-radius:999px;font-weight:800;
+    box-shadow:0 14px 40px rgba(0,0,0,.35);z-index:120;transition:transform .25s ease;
+  }
+  .toast.show{transform:translateX(-50%) translateY(0)}
+
+  /* tijd op */
+  .timeup{text-align:center;padding:40px 20px}
+  .timeup .big{font-size:5rem}
+  .timeup h2{margin:.2em 0;font-size:1.8rem}
+  .timeup p{color:var(--muted);font-weight:700;font-size:1.05rem}
+
+  .swatches{display:flex;gap:8px;flex-wrap:wrap}
+  .swatch{width:38px;height:38px;border-radius:12px;border:3px solid transparent}
+  .swatch.sel{border-color:var(--text)}
+  .emopick{display:flex;gap:6px;flex-wrap:wrap}
+  .emopick button{font-size:1.3rem;padding:6px 8px;border-radius:12px;border:2px solid var(--line);background:var(--card)}
+  .emopick button.sel{border-color:var(--accent)}
+
+  @media (max-width:560px){
+    .logo span.txt{display:none}
+    .grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+    main{padding:12px}
+    .tabs{top:64px}
+    header.top{padding:10px 12px;gap:8px}
+    .pill{padding:8px 12px;font-size:.85rem}
+    .iconbtn{width:44px;height:44px;font-size:1.2rem}
+    .controls{gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom))}
+    .cbtn{width:50px;height:50px;font-size:1.3rem}
+    .cbtn.sec{width:44px;height:44px;font-size:1.1rem}
+    .ctime{min-width:38px;font-size:.85rem}
+    #durTime{display:none}
+    .playerbar{padding:10px 12px;gap:8px}
+    .backbtn{padding:10px 16px}
+    .modal{border-radius:20px}
+    .modal .body{padding:16px 14px 22px}
+    .modal header{padding:14px 16px}
+    .tabs{padding:0 12px}
+    .litem img{width:72px;height:41px}
+  }
+  .tabs{overflow-x:auto;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{white-space:nowrap}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="logo"><div class="mark">▶</div><span class="txt">KidsTube</span></div>
+    <div class="spacer"></div>
+    <div id="timePill" class="pill" title="Kijktijd van vandaag">⏱️ <span id="timeText">–</span></div>
+    <button class="iconbtn" id="themeBtn" title="Dag / nacht">🌙</button>
+    <button class="iconbtn" id="parentBtn" title="Voor ouders">🔒</button>
+  </header>
+
+  <nav class="cats" id="cats"></nav>
+
+  <main>
+    <div class="grid" id="grid"></div>
+    <div class="empty" id="empty" style="display:none">
+      <div class="big">🎬</div>
+      <h2>Nog geen video's</h2>
+      <p>Vraag papa of mama om video's toe te voegen met het slotje 🔒 rechtsboven.</p>
+    </div>
+  </main>
+</div>
+
+<!-- Speler -->
+<div class="player" id="player">
+  <div class="playerbar">
+    <button class="backbtn" id="closePlayer">⬅ Klaar</button>
+    <div class="t" id="playerTitle"></div>
+    <div class="spacer"></div>
+    <div class="pill" style="background:#1a1d33;border-color:#2d3257;color:#fff">⏱️ <span id="playerTime">–</span></div>
+  </div>
+  <div class="stage locked" id="stage">
+    <div id="ytplayer"></div>
+    <div class="playererr" id="playerErr">
+      <div>
+        <div style="font-size:3.5rem">😕</div>
+        <h3>Deze video kan hier niet afspelen</h3>
+        <p id="playerErrMsg"></p>
+      </div>
+    </div>
+  </div>
+  <div class="controls" id="controls">
+    <button class="cbtn" id="ppBtn" title="Afspelen / pauze">⏸</button>
+    <span class="ctime" id="curTime">0:00</span>
+    <input type="range" id="seek" min="0" max="1000" value="0" step="1" aria-label="Positie in video" />
+    <span class="ctime" id="durTime">0:00</span>
+    <button class="cbtn sec" id="muteBtn" title="Geluid aan/uit">🔊</button>
+    <button class="cbtn sec" id="fsBtn" title="Volledig scherm">⛶</button>
+  </div>
+</div>
+
+<!-- Pincode -->
+<div class="overlay" id="pinOverlay">
+  <div class="modal" style="width:min(420px,100%)">
+    <header><h2 id="pinTitle">🔒 Pincode</h2><button class="closebtn" data-close="pinOverlay">✕</button></header>
+    <div class="body pinbox" id="pinBox">
+      <p id="pinHint" style="color:var(--muted);font-weight:700;margin-top:0">Voer de pincode van de ouder in</p>
+      <div class="pindots" id="pinDots"></div>
+      <div class="keys" id="keys"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Ouderscherm -->
+<div class="overlay" id="parentOverlay">
+  <div class="modal">
+    <header><h2>👨‍👩‍👧 Ouderscherm</h2><button class="closebtn" data-close="parentOverlay">✕</button></header>
+    <div class="tabs">
+      <button class="tab active" data-tab="tabVideos">🎬 Video's</button>
+      <button class="tab" data-tab="tabSearch">🔎 Zoeken</button>
+      <button class="tab" data-tab="tabList">📋 Lijst</button>
+      <button class="tab" data-tab="tabCats">🗂️ Categorieën</button>
+      <button class="tab" data-tab="tabSet">⚙️ Instellingen</button>
+    </div>
+    <div class="body">
+      <!-- VIDEO'S -->
+      <section id="tabVideos">
+        <label class="field"><span>YouTube-link of video-ID</span>
+          <input type="text" id="vUrl" placeholder="https://www.youtube.com/watch?v=..." />
+        </label>
+        <div class="row" style="gap:12px;align-items:flex-end">
+          <label class="field" style="flex:1;min-width:200px;margin-bottom:0"><span>Titel (wordt automatisch opgehaald)</span>
+            <input type="text" id="vTitle" placeholder="Bijv. Liedjes over dieren" />
+          </label>
+          <label class="field" style="width:200px;margin-bottom:0"><span>Categorie</span>
+            <select id="vCat"></select>
+          </label>
+        </div>
+        <div class="row" style="margin-top:14px">
+          <button class="btn" id="addVideo">➕ Toevoegen</button>
+          <button class="btn sec" id="demoBtn">✨ Voorbeeldvideo's</button>
+        </div>
+
+        <div class="row" style="margin-top:18px">
+          <button class="btn sec" id="selAll">☑️ Alles selecteren</button>
+          <button class="btn danger" id="delSel" disabled>🗑️ Verwijderen</button>
+        </div>
+        <div class="list" id="vList" style="margin-top:14px"></div>
+      </section>
+
+      <!-- ZOEKEN -->
+      <section id="tabSearch" style="display:none">
+        <label class="field"><span>Zoeken op YouTube</span>
+          <div class="row">
+            <input type="text" id="qText" placeholder="Bijv. kinderliedjes over dieren" style="flex:1;min-width:220px" />
+            <button class="btn" id="qGo">🔎 Zoeken</button>
+          </div>
+        </label>
+        <p class="note" id="qStatus">Zoeken gebeurt met YouTube's beperkte modus aan. Alleen jij ziet deze resultaten – het kind ziet pas iets als jij het toevoegt.</p>
+
+        <div id="qPanel" style="display:none">
+          <div class="row" style="margin-top:14px;align-items:flex-end;gap:12px">
+            <label class="field" style="width:220px;margin-bottom:0"><span>Categorie</span>
+              <select id="qCat"></select>
+            </label>
+            <button class="btn sec" id="qAll">☑️ Alles aan/uit</button>
+            <button class="btn ok" id="qAdd" disabled>➕ Toevoegen</button>
+          </div>
+          <div class="list" id="qList" style="margin-top:14px"></div>
+        </div>
+      </section>
+
+      <!-- LIJST IMPORTEREN -->
+      <section id="tabList" style="display:none">
+        <label class="field"><span>Link van een YouTube-playlist</span>
+          <div class="row">
+            <input type="text" id="plUrl" placeholder="https://www.youtube.com/playlist?list=PL..." style="flex:1;min-width:220px" />
+            <button class="btn" id="plFetch">🔍 Ophalen</button>
+          </div>
+        </label>
+
+        <label class="field"><span>Of plak meerdere video-links (één per regel)</span>
+          <textarea id="bulkUrls" rows="4" placeholder="https://youtu.be/...&#10;https://www.youtube.com/watch?v=..."></textarea>
+        </label>
+        <button class="btn sec" id="bulkFetch">🔍 Links inlezen</button>
+
+        <p class="note" id="plStatus" style="margin-top:16px">Haal een lijst op, vink daarna af wat je kind mag zien.</p>
+
+        <div id="plPanel" style="display:none">
+          <div class="row" style="margin-top:14px;align-items:flex-end;gap:12px">
+            <label class="field" style="width:220px;margin-bottom:0"><span>Categorie</span>
+              <select id="plCat"></select>
+            </label>
+            <button class="btn sec" id="plAll">☑️ Alles aan/uit</button>
+            <button class="btn ok" id="plAdd">➕ Toevoegen</button>
+            <button class="btn sec" id="plClear">✖️ Leegmaken</button>
+          </div>
+          <div class="list" id="plList" style="margin-top:14px"></div>
+        </div>
+      </section>
+
+      <!-- CATEGORIEËN -->
+      <section id="tabCats" style="display:none">
+        <div class="row" style="align-items:flex-end;gap:12px">
+          <label class="field" style="flex:1;min-width:180px;margin-bottom:0"><span>Naam categorie</span>
+            <input type="text" id="cName" placeholder="Bijv. Dinosaurussen" />
+          </label>
+          <button class="btn" id="addCat">➕ Toevoegen</button>
+        </div>
+        <div style="margin-top:14px">
+          <span style="font-weight:800;font-size:.95rem">Icoon</span>
+          <div class="emopick" id="cEmos"></div>
+        </div>
+        <div style="margin-top:14px">
+          <span style="font-weight:800;font-size:.95rem">Kleur</span>
+          <div class="swatches" id="cColors"></div>
+        </div>
+        <div class="list" id="cList" style="margin-top:18px"></div>
+      </section>
+
+      <!-- INSTELLINGEN -->
+      <section id="tabSet" style="display:none">
+        <label class="field"><span>Kijktijd per dag beperken</span>
+          <div class="row">
+            <select id="limitOn" style="width:160px">
+              <option value="1">Aan</option>
+              <option value="0">Uit</option>
+            </select>
+            <input type="number" id="limitMin" min="5" max="480" step="5" style="width:140px" />
+            <span style="font-weight:800">minuten</span>
+          </div>
+        </label>
+        <div class="note" id="usageNote"></div>
+        <div class="row" style="margin-top:12px">
+          <button class="btn sec" id="addTime">➕ 15 min extra vandaag</button>
+          <button class="btn sec" id="resetTime">♻️ Kijktijd op 0</button>
+        </div>
+
+        <hr style="border:none;border-top:2px solid var(--line);margin:22px 0" />
+
+        <label class="field"><span>Nieuwe pincode (4 cijfers)</span>
+          <div class="row">
+            <input type="password" id="newPin" inputmode="numeric" maxlength="4" placeholder="••••" style="width:160px" />
+            <button class="btn ok" id="savePin">Opslaan</button>
+          </div>
+        </label>
+
+        <hr style="border:none;border-top:2px solid var(--line);margin:22px 0" />
+
+        <label class="field"><span>YouTube API-sleutel (alleen nodig voor zoeken op de online versie)</span>
+          <div class="row">
+            <input type="text" id="apiKey" placeholder="AIza..." style="flex:1;min-width:200px" />
+            <button class="btn ok" id="saveKey">Opslaan</button>
+          </div>
+        </label>
+        <p class="note">Thuis via “KidsTube starten.cmd” werkt zoeken zonder sleutel. Op een website (zoals GitHub Pages) is een gratis sleutel nodig: console.cloud.google.com → YouTube Data API v3 → Inloggegevens. Beperk de sleutel tot jouw webadres.</p>
+
+        <hr style="border:none;border-top:2px solid var(--line);margin:22px 0" />
+
+        <span style="font-weight:800;font-size:.95rem">Back-up en delen</span>
+        <div class="row" style="margin-top:8px">
+          <button class="btn sec" id="exportBtn">⬇️ Exporteren</button>
+          <button class="btn sec" id="importBtn">⬆️ Importeren</button>
+          <button class="btn sec" id="shareBtn">📤 videos.json maken</button>
+          <input type="file" id="importFile" accept="application/json" style="display:none" />
+        </div>
+        <p class="note" style="margin-top:14px">Alles wordt alleen op dit apparaat bewaard (in de browser). Maak een back-up voordat je de browsergegevens wist. Met “videos.json maken” maak je het bestand dat je in je GitHub-repo zet, zodat alle apparaten dezelfde lijst krijgen.</p>
+      </section>
+    </div>
+  </div>
+</div>
+
+<!-- Tijd op -->
+<div class="overlay" id="timeupOverlay">
+  <div class="modal" style="width:min(460px,100%)">
+    <div class="body timeup">
+      <div class="big">😴</div>
+      <h2>Klaar voor vandaag!</h2>
+      <p>De kijktijd van vandaag is op. Morgen mag je weer kijken.</p>
+      <div class="row" style="justify-content:center;margin-top:18px">
+        <button class="btn sec" id="timeupParent">🔒 Ouder: extra tijd</button>
+        <button class="btn" id="timeupOk">Oké</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------------- Opslag ---------------- */
+const KEY = "kidstube.v1";
+const EMOS = ["🎵","🐶","📚","🎨","⚽","🦕","🚀","🧪","🍿","🐠","🚗","🌈","🧸","🏰","🎄","⭐"];
+const COLORS = ["#5b5bf6","#ff5fa2","#22b07d","#ff9f1a","#13b7d6","#a259ff","#ef4444","#7c5cff"];
+
+const DEFAULTS = {
+  pin: "1234",
+  theme: "light",
+  apiKey: "",
+  sharedRev: 0,
+  limitEnabled: true,
+  limitMin: 30,
+  bonusMin: 0,
+  usageDate: "",
+  usageSec: 0,
+  cats: [
+    {id:"muziek",   name:"Muziek",    emo:"🎵", color:"#ff5fa2"},
+    {id:"dieren",   name:"Dieren",    emo:"🐶", color:"#22b07d"},
+    {id:"leren",    name:"Leren",     emo:"📚", color:"#13b7d6"},
+    {id:"verhalen", name:"Verhalen",  emo:"🧸", color:"#a259ff"},
+    {id:"knutselen",name:"Knutselen", emo:"🎨", color:"#ff9f1a"}
+  ],
+  videos: []
+};
+
+let S = load();
+
+function load(){
+  try{
+    const raw = localStorage.getItem(KEY);
+    if(!raw) return structuredClone(DEFAULTS);
+    const d = JSON.parse(raw);
+    return Object.assign(structuredClone(DEFAULTS), d);
+  }catch(e){ return structuredClone(DEFAULTS); }
+}
+function save(){
+  try{ localStorage.setItem(KEY, JSON.stringify(S)); }
+  catch(e){ toast("Opslaan lukte niet 😕"); }
+}
+function today(){ return new Date().toISOString().slice(0,10); }
+function rollDay(){
+  if(S.usageDate !== today()){
+    S.usageDate = today();
+    S.usageSec = 0;
+    S.bonusMin = 0;
+    save();
+  }
+}
+rollDay();
+
+/* ---------------- Helpers ---------------- */
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+let toastT;
+function toast(msg){
+  const t = $("#toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(toastT);
+  toastT = setTimeout(()=>t.classList.remove("show"), 2400);
+}
+function uid(){ return Math.random().toString(36).slice(2,9); }
+function esc(s){ return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+
+function parseYouTube(input){
+  const s = (input||"").trim();
+  if(!s) return null;
+  if(/^[A-Za-z0-9_-]{11}$/.test(s)) return s;
+  let m;
+  m = s.match(/(?:youtube\.com|youtube-nocookie\.com)\/(?:watch\?(?:[^#]*&)?v=|embed\/|v\/|shorts\/|live\/)([A-Za-z0-9_-]{11})/);
+  if(m) return m[1];
+  m = s.match(/youtu\.be\/([A-Za-z0-9_-]{11})/);
+  if(m) return m[1];
+  m = s.match(/[?&]v=([A-Za-z0-9_-]{11})/);
+  if(m) return m[1];
+  return null;
+}
+function thumb(id){ return "https://i.ytimg.com/vi/"+id+"/hqdefault.jpg"; }
+function fmt(sec){
+  sec = Math.max(0, Math.round(sec));
+  const m = Math.floor(sec/60), s = sec%60;
+  return m + ":" + String(s).padStart(2,"0");
+}
+function limitSec(){ return (S.limitMin + (S.bonusMin||0)) * 60; }
+function leftSec(){ return S.limitEnabled ? Math.max(0, limitSec() - S.usageSec) : Infinity; }
+
+/* ---------------- Thema ---------------- */
+function applyTheme(){
+  document.documentElement.dataset.theme = S.theme;
+  $("#themeBtn").textContent = S.theme === "dark" ? "☀️" : "🌙";
+}
+$("#themeBtn").onclick = () => { S.theme = S.theme === "dark" ? "light" : "dark"; save(); applyTheme(); };
+applyTheme();
+
+/* ---------------- Kindscherm ---------------- */
+let activeCat = "all";
+
+function renderCats(){
+  const el = $("#cats");
+  const favCount = S.videos.filter(v=>v.fav).length;
+  const items = [{id:"all",name:"Alles",emo:"🏠",color:"#5b5bf6"}];
+  if(favCount) items.push({id:"fav",name:"Favorieten",emo:"⭐",color:"#ffb300"});
+  S.cats.forEach(c => { if(S.videos.some(v=>v.cat===c.id)) items.push(c); });
+
+  el.innerHTML = items.map(c =>
+    `<button class="cat ${activeCat===c.id?"active":""}" data-cat="${esc(c.id)}"
+      style="${activeCat===c.id?`background:${esc(c.color)}`:""}">
+      <span class="emo">${c.emo}</span>${esc(c.name)}</button>`).join("");
+
+  el.querySelectorAll("[data-cat]").forEach(b => b.onclick = () => {
+    activeCat = b.dataset.cat; renderCats(); renderGrid();
+  });
+  el.style.display = S.videos.length ? "flex" : "none";
+}
+
+function visibleVideos(){
+  if(activeCat === "all") return S.videos;
+  if(activeCat === "fav") return S.videos.filter(v=>v.fav);
+  return S.videos.filter(v => v.cat === activeCat);
+}
+
+function renderGrid(){
+  const grid = $("#grid"), list = visibleVideos();
+  $("#empty").style.display = S.videos.length ? "none" : "block";
+  grid.innerHTML = list.map(v => {
+    const cat = S.cats.find(c=>c.id===v.cat);
+    return `<div class="vcard">
+      <button class="fav ${v.fav?"on":""}" data-fav="${v.id}" title="Favoriet">${v.fav?"★":"☆"}</button>
+      <button style="all:unset;cursor:pointer;display:block" data-play="${v.id}">
+        <div class="thumbwrap">
+          <img src="${thumb(v.yt)}" alt="" loading="lazy"
+               onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${v.yt}/mqdefault.jpg'">
+          <div class="play">▶</div>
+        </div>
+        <div class="vtitle">${esc(v.title)}</div>
+        ${cat?`<div class="vmeta">${cat.emo} ${esc(cat.name)}</div>`:""}
+      </button>
+    </div>`;
+  }).join("");
+
+  grid.querySelectorAll("[data-play]").forEach(b => b.onclick = () => openPlayer(b.dataset.play));
+  grid.querySelectorAll("[data-fav]").forEach(b => b.onclick = e => {
+    e.stopPropagation();
+    const v = S.videos.find(x=>x.id===b.dataset.fav);
+    if(!v) return;
+    v.fav = !v.fav; save(); renderCats(); renderGrid();
+    toast(v.fav ? "Bij favorieten gezet ⭐" : "Uit favorieten gehaald");
+  });
+}
+
+function renderTime(){
+  const pill = $("#timePill"), txt = $("#timeText");
+  if(!S.limitEnabled){ txt.textContent = "vrij kijken"; pill.classList.remove("warn"); return; }
+  const left = leftSec();
+  txt.textContent = left <= 0 ? "tijd is op" : fmt(left) + " over";
+  pill.classList.toggle("warn", left <= 300);
+  $("#playerTime").textContent = left <= 0 ? "0:00" : fmt(left);
+}
+
+/* ---------------- Speler + kijktijd ---------------- */
+let player = null, apiReady = false, tickT = null, current = null, usingFallback = false;
+let uiT = null, seeking = false;
+const isWeb = location.protocol === "http:" || location.protocol === "https:";
+
+window.onYouTubeIframeAPIReady = function(){ apiReady = true; };
+(function loadApi(){
+  const s = document.createElement("script");
+  s.src = "https://www.youtube.com/iframe_api";
+  s.onerror = () => { usingFallback = true; };
+  document.head.appendChild(s);
+})();
+
+function openPlayer(id){
+  const v = S.videos.find(x=>x.id===id);
+  if(!v) return;
+  if(S.limitEnabled && leftSec() <= 0){ showTimeUp(); return; }
+  current = v;
+  $("#playerTitle").textContent = v.title;
+  $("#player").classList.add("show");
+  $("#playerErr").classList.remove("show");
+  renderTime();
+  startVideo(v.yt);
+}
+
+function showPlayerError(code){
+  const msgs = {
+    2:"De link van deze video klopt niet. Vraag een ouder om hem opnieuw toe te voegen.",
+    5:"Deze video werkt niet in de speler.",
+    100:"Deze video bestaat niet meer op YouTube.",
+    101:"De maker van deze video staat afspelen buiten YouTube niet toe.",
+    150:"De maker van deze video staat afspelen buiten YouTube niet toe.",
+    153:"Start de app via “KidsTube starten.cmd”. Door het HTML-bestand te dubbelklikken blokkeert YouTube het afspelen."
+  };
+  $("#playerErrMsg").textContent = msgs[code] || "Probeer het later nog eens.";
+  $("#playerErr").classList.add("show");
+  stopTick();
+}
+
+function resetStage(){
+  const stage = $("#stage");
+  const old = document.getElementById("ytplayer");
+  if(old) old.remove();
+  const d = document.createElement("div");
+  d.id = "ytplayer";
+  stage.insertBefore(d, stage.firstChild);
+}
+
+function startVideo(ytId){
+  const opts = { rel:0, modestbranding:1, playsinline:1, autoplay:1, iv_load_policy:3, fs:1 };
+  if(isWeb) opts.origin = location.origin;
+  resetStage();
+  if(apiReady && window.YT && window.YT.Player){
+    $("#controls").classList.add("show");
+    $("#stage").classList.add("locked");
+    $("#ppBtn").textContent = "⏸";
+    $("#seek").value = 0;
+    $("#curTime").textContent = "0:00";
+    $("#durTime").textContent = "0:00";
+    player = new YT.Player("ytplayer", {
+      host:"https://www.youtube-nocookie.com",
+      videoId: ytId,
+      playerVars: opts,
+      events:{
+        onReady: e => { try{ e.target.playVideo(); }catch(_){} startUiLoop(); },
+        onError: e => showPlayerError(e.data),
+        onStateChange: e => {
+          if(e.data === YT.PlayerState.PLAYING){ startTick(); $("#ppBtn").textContent = "⏸"; }
+          else { stopTick(); $("#ppBtn").textContent = "▶"; }
+          if(e.data === YT.PlayerState.ENDED) closePlayer();
+        }
+      }
+    });
+  }else{
+    /* Zonder de YouTube-API vallen we terug op een gewone embed met YouTube-knoppen */
+    usingFallback = true;
+    $("#controls").classList.remove("show");
+    $("#stage").classList.remove("locked");
+    const q = Object.entries(opts).map(([k,v])=>k+"="+encodeURIComponent(v)).join("&");
+    $("#ytplayer").outerHTML =
+      `<iframe id="ytplayer" src="https://www.youtube-nocookie.com/embed/${ytId}?${q}"
+        allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
+    startTick();
+  }
+}
+
+/* eigen bediening */
+function startUiLoop(){
+  clearInterval(uiT);
+  uiT = setInterval(() => {
+    if(!player || !player.getDuration) return;
+    const d = player.getDuration() || 0, c = player.getCurrentTime() || 0;
+    $("#durTime").textContent = d ? fmt(d) : "0:00";
+    $("#curTime").textContent = fmt(c);
+    if(!seeking && d) $("#seek").value = Math.round(c / d * 1000);
+    try{ $("#muteBtn").textContent = player.isMuted() ? "🔇" : "🔊"; }catch(_){}
+  }, 500);
+}
+function stopUiLoop(){ clearInterval(uiT); uiT = null; }
+
+$("#ppBtn").onclick = () => {
+  if(!player) return;
+  const st = player.getPlayerState && player.getPlayerState();
+  if(st === 1) player.pauseVideo(); else player.playVideo();
+};
+$("#muteBtn").onclick = () => {
+  if(!player) return;
+  if(player.isMuted()) player.unMute(); else player.mute();
+};
+$("#fsBtn").onclick = () => {
+  const el = $("#player");
+  if(document.fullscreenElement) document.exitFullscreen();
+  else if(el.requestFullscreen) el.requestFullscreen().catch(()=>{});
+};
+$("#seek").addEventListener("input", () => { seeking = true; });
+$("#seek").addEventListener("change", () => {
+  if(player && player.getDuration){
+    const d = player.getDuration() || 0;
+    player.seekTo(d * ($("#seek").value / 1000), true);
+  }
+  seeking = false;
+});
+
+function startTick(){
+  if(tickT) return;
+  tickT = setInterval(() => {
+    S.usageSec += 1;
+    if(S.usageSec % 5 === 0) save();
+    renderTime();
+    if(S.limitEnabled && leftSec() <= 0){ save(); closePlayer(); showTimeUp(); }
+  }, 1000);
+}
+function stopTick(){ clearInterval(tickT); tickT = null; save(); }
+
+function closePlayer(){
+  stopTick(); stopUiLoop();
+  if(document.fullscreenElement) document.exitFullscreen().catch(()=>{});
+  $("#player").classList.remove("show");
+  $("#playerErr").classList.remove("show");
+  try{ if(player && player.destroy) player.destroy(); }catch(_){}
+  player = null;
+  resetStage();
+  current = null;
+  renderTime();
+}
+$("#closePlayer").onclick = closePlayer;
+document.addEventListener("keydown", e => { if(e.key === "Escape" && $("#player").classList.contains("show")) closePlayer(); });
+document.addEventListener("visibilitychange", () => {
+  if(document.hidden){ stopTick(); return; }
+  try{
+    if(player && player.getPlayerState && player.getPlayerState() === YT.PlayerState.PLAYING) startTick();
+  }catch(_){}
+});
+
+function showTimeUp(){ $("#timeupOverlay").classList.add("show"); }
+$("#timeupOk").onclick = () => $("#timeupOverlay").classList.remove("show");
+$("#timeupParent").onclick = () => {
+  $("#timeupOverlay").classList.remove("show");
+  askPin(() => { S.bonusMin = (S.bonusMin||0) + 15; save(); renderTime(); toast("15 minuten extra ⏱️"); });
+};
+
+/* ---------------- Pincode ---------------- */
+let pinBuf = "", pinCb = null;
+function renderPinDots(){
+  $("#pinDots").innerHTML = [0,1,2,3].map(i => `<div class="pindot ${i<pinBuf.length?"on":""}"></div>`).join("");
+}
+function askPin(cb){
+  pinBuf = ""; pinCb = cb;
+  renderPinDots();
+  $("#pinOverlay").classList.add("show");
+}
+(function buildKeys(){
+  const keys = ["1","2","3","4","5","6","7","8","9","⌫","0","✓"];
+  $("#keys").innerHTML = keys.map(k => `<button class="key" data-k="${k}">${k}</button>`).join("");
+  $$("#keys .key").forEach(b => b.onclick = () => {
+    const k = b.dataset.k;
+    if(k === "⌫") pinBuf = pinBuf.slice(0,-1);
+    else if(k === "✓") return checkPin();
+    else if(pinBuf.length < 4) pinBuf += k;
+    renderPinDots();
+    if(pinBuf.length === 4) setTimeout(checkPin, 150);
+  });
+})();
+function checkPin(){
+  if(pinBuf === String(S.pin)){
+    $("#pinOverlay").classList.remove("show");
+    const cb = pinCb; pinCb = null; pinBuf = "";
+    if(cb) cb();
+  }else{
+    $("#pinBox").classList.add("shake");
+    setTimeout(()=>$("#pinBox").classList.remove("shake"), 420);
+    pinBuf = ""; renderPinDots();
+    toast("Pincode klopt niet 🔒");
+  }
+}
+
+/* ---------------- Ouderscherm ---------------- */
+$("#parentBtn").onclick = () => askPin(openParent);
+$$("[data-close]").forEach(b => b.onclick = () => $("#"+b.dataset.close).classList.remove("show"));
+$$(".overlay").forEach(o => o.addEventListener("click", e => { if(e.target === o) o.classList.remove("show"); }));
+
+function openParent(){
+  renderCatSelect(); renderVList(); renderCList(); renderSettings(); renderStage();
+  $("#parentOverlay").classList.add("show");
+}
+$$(".tab").forEach(t => t.onclick = () => {
+  $$(".tab").forEach(x=>x.classList.remove("active"));
+  t.classList.add("active");
+  ["tabVideos","tabSearch","tabList","tabCats","tabSet"].forEach(id => $("#"+id).style.display = (id===t.dataset.tab?"block":"none"));
+});
+
+function renderCatSelect(){
+  const opts = S.cats.map(c => `<option value="${esc(c.id)}">${c.emo} ${esc(c.name)}</option>`).join("");
+  $("#vCat").innerHTML = opts;
+  [["#plCat", $("#plCat").value], ["#qCat", $("#qCat").value]].forEach(([sel, keep]) => {
+    $(sel).innerHTML = opts;
+    if(keep && S.cats.some(c => c.id === keep)) $(sel).value = keep;
+  });
+}
+
+async function fetchTitle(ytId){
+  try{
+    const r = await fetch("https://www.youtube.com/oembed?format=json&url=" +
+      encodeURIComponent("https://www.youtube.com/watch?v=" + ytId));
+    if(!r.ok) return null;
+    const j = await r.json();
+    return j.title || null;
+  }catch(e){ return null; }
+}
+
+$("#vUrl").addEventListener("change", async () => {
+  const id = parseYouTube($("#vUrl").value);
+  if(!id || $("#vTitle").value.trim()) return;
+  $("#vTitle").placeholder = "Titel ophalen…";
+  const t = await fetchTitle(id);
+  $("#vTitle").placeholder = "Bijv. Liedjes over dieren";
+  if(t && !$("#vTitle").value.trim()) $("#vTitle").value = t;
+});
+
+$("#addVideo").onclick = async () => {
+  const yt = parseYouTube($("#vUrl").value);
+  if(!yt) return toast("Geen geldige YouTube-link 🤔");
+  if(S.videos.some(v => v.yt === yt)) return toast("Deze video staat er al in");
+  let title = $("#vTitle").value.trim();
+  if(!title) title = (await fetchTitle(yt)) || "Video";
+  S.videos.unshift({ id:uid(), yt, title, cat:$("#vCat").value, fav:false, added:Date.now() });
+  save();
+  $("#vUrl").value = ""; $("#vTitle").value = "";
+  renderVList(); renderCats(); renderGrid();
+  toast("Video toegevoegd ✅");
+};
+
+$("#demoBtn").onclick = () => {
+  const demos = [
+    {yt:"aqz-KE-bpKQ", title:"Big Buck Bunny (tekenfilm)", cat:"verhalen"},
+    {yt:"eRsGyueVLvQ", title:"Sintel – korte animatiefilm", cat:"verhalen"}
+  ];
+  let n = 0;
+  demos.forEach(d => { if(!S.videos.some(v=>v.yt===d.yt)){ S.videos.push({id:uid(),fav:false,added:Date.now(),...d}); n++; } });
+  save(); renderVList(); renderCats(); renderGrid();
+  toast(n ? n+" voorbeeldvideo's toegevoegd" : "Staan er al in");
+};
+
+/* ---------------- Lijst / playlist importeren ---------------- */
+let stage = [];
+
+function parsePlaylist(input){
+  const s = (input||"").trim();
+  if(!s) return null;
+  const m = s.match(/[?&]list=([A-Za-z0-9_-]{12,})/);
+  if(m) return m[1];
+  if(/^(PL|UU|OL|FL|LL|RD)[A-Za-z0-9_-]{10,}$/.test(s)) return s;
+  return null;
+}
+
+function setStatus(txt){ $("#plStatus").textContent = txt; }
+
+/* Haalt de video-ID's van een playlist op via een verborgen YouTube-speler (geen API-sleutel nodig) */
+function fetchPlaylistIds(listId){
+  return new Promise((resolve, reject) => {
+    if(!(window.YT && window.YT.Player)) return reject(new Error("api"));
+    const holder = document.createElement("div");
+    holder.id = "plImporter";
+    holder.style.cssText = "position:fixed;left:-10000px;top:0;width:200px;height:120px;opacity:0;pointer-events:none";
+    document.body.appendChild(holder);
+
+    let p = null, done = false, poll = null, timer = null;
+    const finish = (ids, err) => {
+      if(done) return;
+      done = true;
+      clearInterval(poll); clearTimeout(timer);
+      try{ if(p && p.destroy) p.destroy(); }catch(_){}
+      const leftover = document.getElementById("plImporter");
+      if(leftover) leftover.remove();
+      if(err) reject(err); else resolve(ids);
+    };
+
+    const opts = { listType:"playlist", list:listId, autoplay:0, controls:0, mute:1 };
+    if(isWeb) opts.origin = location.origin;
+
+    p = new YT.Player("plImporter", {
+      host:"https://www.youtube-nocookie.com",
+      playerVars: opts,
+      events:{ onError: e => finish(null, new Error("yt-" + e.data)) }
+    });
+
+    poll = setInterval(() => {
+      try{
+        const ids = p.getPlaylist && p.getPlaylist();
+        if(ids && ids.length) finish(ids.slice());
+      }catch(_){}
+    }, 400);
+    timer = setTimeout(() => finish(null, new Error("timeout")), 20000);
+  });
+}
+
+async function stageAdd(ids){
+  let nieuw = 0, dubbel = 0;
+  ids.forEach(yt => {
+    if(!/^[A-Za-z0-9_-]{11}$/.test(yt)) return;
+    if(stage.some(s => s.yt === yt)){ dubbel++; return; }
+    const bestaat = S.videos.some(v => v.yt === yt);
+    if(bestaat) dubbel++;
+    stage.push({ yt, title:"", on: !bestaat, exists: bestaat });
+    nieuw++;
+  });
+  $("#plPanel").style.display = stage.length ? "block" : "none";
+  renderStage();
+  setStatus(nieuw + " video's gevonden" + (dubbel ? " (" + dubbel + " stonden er al in en zijn uitgevinkt)" : "") + ". Titels ophalen…");
+  await fillTitles();
+  setStatus(stage.length + " video's klaar. Vink af wat je kind mag zien en klik op Toevoegen.");
+}
+
+async function fillTitles(){
+  const todo = stage.filter(s => !s.title);
+  let i = 0, klaar = 0;
+  const worker = async () => {
+    while(i < todo.length){
+      const item = todo[i++];
+      item.title = (await fetchTitle(item.yt)) || "Video";
+      klaar++;
+      const el = document.querySelector(`#plList [data-pt="${item.yt}"]`);
+      if(el) el.textContent = item.title;
+      if(klaar % 5 === 0) setStatus("Titels ophalen… " + klaar + " / " + todo.length);
+    }
+  };
+  await Promise.all([worker(), worker(), worker(), worker()]);
+}
+
+function renderStage(){
+  const el = $("#plList");
+  $("#plPanel").style.display = stage.length ? "block" : "none";
+  el.innerHTML = stage.map(s => `
+    <div class="litem ${s.on?"":"off"}" data-row="${s.yt}">
+      <input type="checkbox" data-pick="${s.yt}" ${s.on?"checked":""} aria-label="Kiezen" />
+      <img src="${thumb(s.yt)}" alt="">
+      <div class="info">
+        <b data-pt="${s.yt}">${esc(s.title || "Titel ophalen…")}</b>
+        <small>${s.exists ? "staat al in de lijst" : esc(s.yt)}</small>
+      </div>
+    </div>`).join("");
+
+  el.querySelectorAll("[data-pick]").forEach(cb => cb.onchange = () => {
+    const item = stage.find(s => s.yt === cb.dataset.pick);
+    if(!item) return;
+    item.on = cb.checked;
+    const row = el.querySelector(`[data-row="${item.yt}"]`);
+    if(row) row.classList.toggle("off", !item.on);
+    updateAddBtn();
+  });
+  updateAddBtn();
+}
+
+function updateAddBtn(){
+  const n = stage.filter(s => s.on).length;
+  $("#plAdd").textContent = n ? `➕ ${n} toevoegen` : "➕ Toevoegen";
+  $("#plAdd").disabled = n === 0;
+}
+
+$("#plFetch").onclick = async () => {
+  const list = parsePlaylist($("#plUrl").value);
+  if(!list) return toast("Geen geldige playlist-link 🤔");
+  $("#plFetch").disabled = true;
+  setStatus("Lijst ophalen… even geduld.");
+  try{
+    const ids = await fetchPlaylistIds(list);
+    $("#plUrl").value = "";
+    await stageAdd(ids);
+    toast("Lijst opgehaald ✅");
+  }catch(e){
+    setStatus("Lijst ophalen lukte niet. Is de playlist openbaar (niet privé) en klopt de link?");
+    toast("Lijst ophalen lukte niet 😕");
+  }finally{
+    $("#plFetch").disabled = false;
+  }
+};
+
+$("#bulkFetch").onclick = async () => {
+  const regels = $("#bulkUrls").value.split(/[\r\n,;\s]+/).filter(Boolean);
+  const ids = [], fout = [];
+  regels.forEach(r => {
+    const id = parseYouTube(r);
+    if(id) ids.push(id); else fout.push(r);
+  });
+  if(!ids.length) return toast("Geen geldige video-links gevonden 🤔");
+  $("#bulkUrls").value = fout.join("\n");
+  await stageAdd(ids);
+  if(fout.length) toast(fout.length + " regel(s) herkende ik niet");
+};
+
+$("#plAll").onclick = () => {
+  const aan = stage.some(s => !s.on);
+  stage.forEach(s => s.on = aan);
+  renderStage();
+};
+
+$("#plClear").onclick = () => {
+  stage = [];
+  renderStage();
+  setStatus("Lijst leeggemaakt. Haal een nieuwe lijst op.");
+};
+
+$("#plAdd").onclick = () => {
+  const cat = $("#plCat").value;
+  const gekozen = stage.filter(s => s.on && !S.videos.some(v => v.yt === s.yt));
+  if(!gekozen.length) return toast("Niets geselecteerd");
+  gekozen.forEach(s => S.videos.push({
+    id: uid(), yt: s.yt, title: s.title || "Video", cat, fav:false, added: Date.now()
+  }));
+  save();
+  stage = [];
+  renderStage();
+  setStatus(gekozen.length + " video's toegevoegd. Je kunt een nieuwe lijst ophalen.");
+  renderVList(); renderCats(); renderGrid();
+  toast(gekozen.length + " video's toegevoegd ✅");
+};
+
+/* ---------------- Zoeken op YouTube ---------------- */
+let found = [];
+
+function collectVideos(node, out, seen){
+  if(!node || typeof node !== "object") return;
+  if(Array.isArray(node)){ node.forEach(n => collectVideos(n, out, seen)); return; }
+  const vr = node.videoRenderer;
+  if(vr && vr.videoId && !seen.has(vr.videoId)){
+    seen.add(vr.videoId);
+    const titel = (vr.title && vr.title.runs && vr.title.runs[0] && vr.title.runs[0].text)
+      || (vr.title && vr.title.simpleText) || "Video";
+    const duur = (vr.lengthText && vr.lengthText.simpleText) || "";
+    const kanaal = (vr.ownerText && vr.ownerText.runs && vr.ownerText.runs[0] && vr.ownerText.runs[0].text)
+      || (vr.longBylineText && vr.longBylineText.runs && vr.longBylineText.runs[0] && vr.longBylineText.runs[0].text) || "";
+    out.push({ yt: vr.videoId, title: titel, duur, kanaal, on: false, exists: S.videos.some(v => v.yt === vr.videoId) });
+  }
+  Object.keys(node).forEach(k => collectVideos(node[k], out, seen));
+}
+
+function parseSearchHtml(html){
+  const m = html.match(/ytInitialData"\]\s*=\s*(\{[\s\S]*?\});/)
+         || html.match(/var\s+ytInitialData\s*=\s*(\{[\s\S]*?\});\s*<\/script>/)
+         || html.match(/ytInitialData\s*=\s*(\{[\s\S]*?\});/);
+  if(!m) return [];
+  let data;
+  try{ data = JSON.parse(m[1]); }catch(e){ return []; }
+  const out = [];
+  collectVideos(data, out, new Set());
+  return out.slice(0, 40);
+}
+
+function renderFound(){
+  const el = $("#qList");
+  $("#qPanel").style.display = found.length ? "block" : "none";
+  el.innerHTML = found.map(f => `
+    <div class="litem ${f.exists?"off":""}" data-qrow="${f.yt}">
+      <input type="checkbox" data-qpick="${f.yt}" ${f.on?"checked":""} ${f.exists?"disabled":""} aria-label="Kiezen" />
+      <img src="${thumb(f.yt)}" alt="">
+      <div class="info">
+        <b>${esc(f.title)}</b>
+        <small>${f.exists ? "staat al in de lijst" : esc([f.kanaal, f.duur].filter(Boolean).join(" · "))}</small>
+      </div>
+    </div>`).join("");
+
+  el.querySelectorAll("[data-qpick]").forEach(cb => cb.onchange = () => {
+    const item = found.find(f => f.yt === cb.dataset.qpick);
+    if(!item) return;
+    item.on = cb.checked;
+    const row = el.querySelector(`[data-qrow="${item.yt}"]`);
+    if(row) row.classList.toggle("off", item.exists);
+    updateQAdd();
+  });
+  updateQAdd();
+}
+
+function updateQAdd(){
+  const n = found.filter(f => f.on && !f.exists).length;
+  $("#qAdd").textContent = n ? `➕ ${n} toevoegen` : "➕ Toevoegen";
+  $("#qAdd").disabled = n === 0;
+}
+
+async function doSearch(q){
+  const r = await fetch("zoek?q=" + encodeURIComponent(q));
+  if(!r.ok) throw new Error("http-" + r.status);
+  return parseSearchHtml(await r.text());
+}
+
+/* Zoeken via de officiële YouTube API (nodig als de app op een website draait) */
+function isoDuur(s){
+  const m = /PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/.exec(s || "");
+  if(!m) return "";
+  const h = +(m[1]||0), mi = +(m[2]||0), se = +(m[3]||0);
+  return h ? h + ":" + String(mi).padStart(2,"0") + ":" + String(se).padStart(2,"0")
+           : mi + ":" + String(se).padStart(2,"0");
+}
+function decodeEntities(s){
+  const t = document.createElement("textarea");
+  t.innerHTML = s || "";
+  return t.value;
+}
+async function searchViaApi(q){
+  const key = (S.apiKey || "").trim();
+  const r = await fetch("https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&safeSearch=strict&maxResults=25&q="
+    + encodeURIComponent(q) + "&key=" + encodeURIComponent(key));
+  if(!r.ok) throw new Error("api-" + r.status);
+  const j = await r.json();
+  const lijst = (j.items || []).filter(i => i.id && i.id.videoId).map(i => ({
+    yt: i.id.videoId,
+    title: decodeEntities(i.snippet && i.snippet.title),
+    kanaal: (i.snippet && i.snippet.channelTitle) || "",
+    duur: "",
+    on: false,
+    exists: S.videos.some(v => v.yt === i.id.videoId)
+  }));
+  try{
+    if(lijst.length){
+      const r2 = await fetch("https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id="
+        + lijst.map(l => l.yt).join(",") + "&key=" + encodeURIComponent(key));
+      if(r2.ok){
+        const j2 = await r2.json();
+        const map = {};
+        (j2.items || []).forEach(i => { map[i.id] = isoDuur(i.contentDetails && i.contentDetails.duration); });
+        lijst.forEach(l => { l.duur = map[l.yt] || ""; });
+      }
+    }
+  }catch(_){}
+  return lijst;
+}
+
+$("#qGo").onclick = async () => {
+  const q = $("#qText").value.trim();
+  if(!q) return toast("Typ eerst waar je naar zoekt");
+  const metSleutel = !!(S.apiKey || "").trim();
+  if(!isWeb && !metSleutel){
+    $("#qStatus").textContent = "Zoeken werkt alleen als je de app start via “KidsTube starten.cmd”, of met een API-sleutel bij Instellingen.";
+    return toast("Start de app via het startbestand 🚀");
+  }
+  $("#qGo").disabled = true;
+  $("#qStatus").textContent = "Zoeken…";
+  try{
+    found = metSleutel ? await searchViaApi(q) : await doSearch(q);
+    renderFound();
+    $("#qStatus").textContent = found.length
+      ? found.length + " resultaten (beperkte modus). Vink aan wat je wilt toevoegen."
+      : "Geen resultaten gevonden. Probeer andere woorden.";
+  }catch(e){
+    found = [];
+    renderFound();
+    $("#qStatus").textContent = metSleutel
+      ? "Zoeken lukte niet. Klopt de API-sleutel bij Instellingen, en is YouTube Data API v3 ingeschakeld?"
+      : "Zoeken lukte niet. Start de app via “KidsTube starten.cmd”, of vul bij Instellingen een YouTube API-sleutel in.";
+    toast("Zoeken lukte niet 😕");
+  }finally{
+    $("#qGo").disabled = false;
+  }
+};
+$("#qText").addEventListener("keydown", e => { if(e.key === "Enter") $("#qGo").click(); });
+
+$("#qAll").onclick = () => {
+  const aan = found.some(f => !f.on && !f.exists);
+  found.forEach(f => { if(!f.exists) f.on = aan; });
+  renderFound();
+};
+
+$("#qAdd").onclick = () => {
+  const cat = $("#qCat").value;
+  const gekozen = found.filter(f => f.on && !S.videos.some(v => v.yt === f.yt));
+  if(!gekozen.length) return toast("Niets geselecteerd");
+  gekozen.forEach(f => S.videos.push({
+    id: uid(), yt: f.yt, title: f.title || "Video", cat, fav:false, added: Date.now()
+  }));
+  save();
+  found.forEach(f => { if(gekozen.some(g => g.yt === f.yt)){ f.exists = true; f.on = false; } });
+  renderFound();
+  renderVList(); renderCats(); renderGrid();
+  toast(gekozen.length + " video's toegevoegd ✅");
+};
+
+/* ---------------- Video's beheren ---------------- */
+let selectie = new Set();
+
+function updateDelBtn(){
+  const n = selectie.size;
+  $("#delSel").textContent = n ? `🗑️ ${n} verwijderen` : "🗑️ Verwijderen";
+  $("#delSel").disabled = n === 0;
+  $("#selAll").textContent = (S.videos.length && n === S.videos.length) ? "⬜ Selectie wissen" : "☑️ Alles selecteren";
+}
+
+$("#selAll").onclick = () => {
+  if(selectie.size === S.videos.length) selectie.clear();
+  else S.videos.forEach(v => selectie.add(v.id));
+  renderVList();
+};
+
+$("#delSel").onclick = () => {
+  const n = selectie.size;
+  if(!n) return;
+  if(!confirm(n === 1 ? "1 video verwijderen?" : n + " video's verwijderen?")) return;
+  S.videos = S.videos.filter(v => !selectie.has(v.id));
+  selectie.clear();
+  save(); renderVList(); renderCats(); renderGrid();
+  toast(n + (n === 1 ? " video verwijderd 🗑️" : " video's verwijderd 🗑️"));
+};
+
+function renderVList(){
+  const el = $("#vList");
+  selectie.forEach(id => { if(!S.videos.some(v => v.id === id)) selectie.delete(id); });
+  if(!S.videos.length){
+    el.innerHTML = '<p class="note">Nog geen video\'s. Plak hierboven een YouTube-link, of gebruik het tabblad Zoeken of Lijst.</p>';
+    updateDelBtn();
+    return;
+  }
+  el.innerHTML = S.videos.map((v,i) => {
+    const cat = S.cats.find(c=>c.id===v.cat);
+    const aan = selectie.has(v.id);
+    return `<div class="litem">
+      <input type="checkbox" data-sel="${v.id}" ${aan?"checked":""} aria-label="Selecteren" />
+      <img src="${thumb(v.yt)}" alt="">
+      <div class="info"><b>${esc(v.title)}</b><small>${cat?cat.emo+" "+esc(cat.name):"geen categorie"} · ${esc(v.yt)}</small></div>
+      <button class="mini" data-up="${v.id}" ${i===0?"disabled":""} title="Omhoog">⬆️</button>
+      <button class="mini" data-down="${v.id}" ${i===S.videos.length-1?"disabled":""} title="Omlaag">⬇️</button>
+      <button class="mini" data-edit="${v.id}" title="Bewerken">✏️</button>
+      <button class="mini del" data-del="${v.id}" title="Verwijderen">🗑️</button>
+    </div>`;
+  }).join("");
+
+  el.querySelectorAll("[data-sel]").forEach(cb => cb.onchange = () => {
+    if(cb.checked) selectie.add(cb.dataset.sel); else selectie.delete(cb.dataset.sel);
+    updateDelBtn();
+  });
+
+  const idx = id => S.videos.findIndex(v=>v.id===id);
+  el.querySelectorAll("[data-up]").forEach(b => b.onclick = () => {
+    const i = idx(b.dataset.up); if(i>0){ [S.videos[i-1],S.videos[i]]=[S.videos[i],S.videos[i-1]]; save(); renderVList(); renderGrid(); }
+  });
+  el.querySelectorAll("[data-down]").forEach(b => b.onclick = () => {
+    const i = idx(b.dataset.down); if(i<S.videos.length-1){ [S.videos[i+1],S.videos[i]]=[S.videos[i],S.videos[i+1]]; save(); renderVList(); renderGrid(); }
+  });
+  el.querySelectorAll("[data-edit]").forEach(b => b.onclick = () => {
+    const v = S.videos.find(x=>x.id===b.dataset.edit);
+    const t = prompt("Nieuwe titel:", v.title);
+    if(t === null) return;
+    const names = S.cats.map((c,i)=>(i+1)+". "+c.name).join("\n");
+    const c = prompt("Categorie kiezen:\n"+names, String(S.cats.findIndex(c=>c.id===v.cat)+1));
+    v.title = t.trim() || v.title;
+    const n = parseInt(c,10);
+    if(n>=1 && n<=S.cats.length) v.cat = S.cats[n-1].id;
+    save(); renderVList(); renderCats(); renderGrid();
+  });
+  el.querySelectorAll("[data-del]").forEach(b => b.onclick = () => {
+    const v = S.videos.find(x=>x.id===b.dataset.del);
+    if(!confirm("“"+v.title+"” verwijderen?")) return;
+    S.videos = S.videos.filter(x=>x.id!==v.id);
+    selectie.delete(v.id);
+    save(); renderVList(); renderCats(); renderGrid();
+  });
+  updateDelBtn();
+}
+
+/* categorieën */
+let newEmo = EMOS[0], newColor = COLORS[0];
+function renderPickers(){
+  $("#cEmos").innerHTML = EMOS.map(e => `<button data-e="${e}" class="${e===newEmo?"sel":""}">${e}</button>`).join("");
+  $("#cColors").innerHTML = COLORS.map(c => `<button class="swatch ${c===newColor?"sel":""}" data-c="${c}" style="background:${c}"></button>`).join("");
+  $$("#cEmos button").forEach(b => b.onclick = () => { newEmo = b.dataset.e; renderPickers(); });
+  $$("#cColors button").forEach(b => b.onclick = () => { newColor = b.dataset.c; renderPickers(); });
+}
+renderPickers();
+
+$("#addCat").onclick = () => {
+  const name = $("#cName").value.trim();
+  if(!name) return toast("Geef de categorie een naam");
+  S.cats.push({ id:uid(), name, emo:newEmo, color:newColor });
+  save(); $("#cName").value = "";
+  renderCList(); renderCatSelect(); renderCats();
+  toast("Categorie toegevoegd ✅");
+};
+
+function renderCList(){
+  $("#cList").innerHTML = S.cats.map(c => {
+    const n = S.videos.filter(v=>v.cat===c.id).length;
+    return `<div class="litem">
+      <div class="mini" style="background:${esc(c.color)};color:#fff;border-color:transparent">${c.emo}</div>
+      <div class="info"><b>${esc(c.name)}</b><small>${n} video${n===1?"":"'s"}</small></div>
+      <button class="mini" data-cren="${c.id}" title="Hernoemen">✏️</button>
+      <button class="mini del" data-cdel="${c.id}" title="Verwijderen">🗑️</button>
+    </div>`;
+  }).join("");
+  $$("#cList [data-cren]").forEach(b => b.onclick = () => {
+    const c = S.cats.find(x=>x.id===b.dataset.cren);
+    const t = prompt("Nieuwe naam:", c.name);
+    if(t && t.trim()){ c.name = t.trim(); save(); renderCList(); renderCatSelect(); renderCats(); renderGrid(); }
+  });
+  $$("#cList [data-cdel]").forEach(b => b.onclick = () => {
+    const c = S.cats.find(x=>x.id===b.dataset.cdel);
+    const n = S.videos.filter(v=>v.cat===c.id).length;
+    if(S.cats.length === 1) return toast("Er moet één categorie overblijven");
+    if(!confirm("“"+c.name+"” verwijderen?" + (n?"\nDe "+n+" video's gaan naar de eerste categorie.":""))) return;
+    S.cats = S.cats.filter(x=>x.id!==c.id);
+    S.videos.forEach(v => { if(v.cat===c.id) v.cat = S.cats[0].id; });
+    if(activeCat === c.id) activeCat = "all";
+    save(); renderCList(); renderCatSelect(); renderCats(); renderGrid();
+  });
+}
+
+/* instellingen */
+function renderSettings(){
+  $("#apiKey").value = S.apiKey || "";
+  $("#limitOn").value = S.limitEnabled ? "1" : "0";
+  $("#limitMin").value = S.limitMin;
+  const used = fmt(S.usageSec), tot = S.limitMin + (S.bonusMin||0);
+  $("#usageNote").textContent = S.limitEnabled
+    ? `Vandaag gekeken: ${used} van ${tot} minuten` + (S.bonusMin ? ` (incl. ${S.bonusMin} min extra)` : "")
+    : `Vandaag gekeken: ${used} (geen limiet ingesteld)`;
+}
+$("#limitOn").onchange = () => { S.limitEnabled = $("#limitOn").value === "1"; save(); renderSettings(); renderTime(); };
+$("#limitMin").onchange = () => {
+  const n = parseInt($("#limitMin").value,10);
+  if(isNaN(n) || n < 5){ $("#limitMin").value = S.limitMin; return toast("Minimaal 5 minuten"); }
+  S.limitMin = n; save(); renderSettings(); renderTime();
+};
+$("#addTime").onclick = () => { S.bonusMin = (S.bonusMin||0)+15; save(); renderSettings(); renderTime(); toast("15 minuten extra ⏱️"); };
+$("#resetTime").onclick = () => { S.usageSec = 0; save(); renderSettings(); renderTime(); toast("Kijktijd op 0 gezet"); };
+$("#savePin").onclick = () => {
+  const p = $("#newPin").value.trim();
+  if(!/^\d{4}$/.test(p)) return toast("Pincode moet 4 cijfers zijn");
+  S.pin = p; save(); $("#newPin").value = ""; toast("Pincode opgeslagen 🔒");
+};
+$("#saveKey").onclick = () => {
+  S.apiKey = $("#apiKey").value.trim();
+  save();
+  toast(S.apiKey ? "API-sleutel opgeslagen 🔑" : "API-sleutel gewist");
+};
+
+$("#shareBtn").onclick = () => {
+  const data = {
+    rev: Date.now(),
+    cats: S.cats,
+    videos: S.videos.map(v => ({ yt: v.yt, title: v.title, cat: v.cat }))
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "videos.json";
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  toast("videos.json gemaakt – zet dit bestand in je repo 📤");
+};
+
+$("#exportBtn").onclick = () => {
+  const blob = new Blob([JSON.stringify(S,null,2)], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "kidstube-backup.json";
+  a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href), 2000);
+};
+$("#importBtn").onclick = () => $("#importFile").click();
+$("#importFile").onchange = e => {
+  const f = e.target.files[0]; if(!f) return;
+  const r = new FileReader();
+  r.onload = () => {
+    try{
+      const d = JSON.parse(r.result);
+      if(!Array.isArray(d.videos) || !Array.isArray(d.cats)) throw new Error("bad");
+      S = Object.assign(structuredClone(DEFAULTS), d);
+      save(); rollDay(); applyTheme();
+      renderCats(); renderGrid(); renderVList(); renderCList(); renderCatSelect(); renderSettings(); renderTime();
+      toast("Back-up geladen ✅");
+    }catch(err){ toast("Dit bestand kon ik niet lezen 😕"); }
+  };
+  r.readAsText(f);
+  e.target.value = "";
+};
+
+/* ---------------- Gedeelde lijst (videos.json) ---------------- */
+async function loadShared(){
+  try{
+    const r = await fetch("videos.json", { cache: "no-store" });
+    if(!r.ok) return;
+    const d = await r.json();
+    if(!d || !Array.isArray(d.videos)) return;
+    const rev = Number(d.rev) || 0;
+    if(rev <= (S.sharedRev || 0)) return;
+
+    (d.cats || []).forEach(c => {
+      if(c && c.id && !S.cats.some(x => x.id === c.id)){
+        S.cats.push({ id:c.id, name:c.name || c.id, emo:c.emo || "⭐", color:c.color || "#5b5bf6" });
+      }
+    });
+
+    let n = 0;
+    d.videos.forEach(v => {
+      if(!v || !/^[A-Za-z0-9_-]{11}$/.test(v.yt || "")) return;
+      if(S.videos.some(x => x.yt === v.yt)) return;
+      const cat = (v.cat && S.cats.some(c => c.id === v.cat)) ? v.cat : S.cats[0].id;
+      S.videos.push({ id:uid(), yt:v.yt, title:v.title || "Video", cat, fav:false, added:Date.now() });
+      n++;
+    });
+
+    S.sharedRev = rev;
+    save();
+    renderCats(); renderGrid();
+    if(n) toast(n + (n === 1 ? " nieuwe video opgehaald ✨" : " nieuwe video's opgehaald ✨"));
+  }catch(e){ /* geen gedeelde lijst aanwezig */ }
+}
+
+/* ---------------- Start ---------------- */
+setInterval(() => { rollDay(); renderTime(); }, 30000);
+renderCats(); renderGrid(); renderTime();
+if(!isWeb) setTimeout(() => toast("Tip: start via “KidsTube starten.cmd” 🚀"), 900);
+if(isWeb) loadShared();
+if("serviceWorker" in navigator && location.protocol === "https:"){
+  window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(()=>{}));
+}
+})();
+</script>
+</body>
+</html>
