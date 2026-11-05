@@ -51,24 +51,28 @@ toestel zelf:
   adresbalk. Voor volledige kiosk kun je een apart kinderaccount gebruiken.
 
 
-DE LIJST OVERAL GELIJK: TWEE MANIEREN
+DE LIJST OVERAL GELIJK: PUBLICEREN ZONDER TOKEN
 
-A. Publiceren vanuit de app (makkelijkst, ook vanaf de telefoon)
-1. Maak op github.com een fine-grained token:
-   Settings -> Developer settings -> Fine-grained tokens -> Generate new token
-   Repository access: alleen jouw kidstube-repo
-   Permissions -> Repository permissions -> Contents: Read and write
-2. In KidsTube: slotje -> Instellingen -> "Automatisch publiceren naar GitHub".
-   Vul gebruiker/repo en het token in en klik op Opslaan.
-3. Klik voortaan op "Lijst nu publiceren". Binnen ongeveer een minuut
-   hebben alle apparaten dezelfde lijst.
+A. Via GitHub Actions (ook vanaf de telefoon)
+1. In KidsTube: slotje -> Instellingen -> "Publiceren via GitHub".
+2. KidsTube kopieert de lijst en opent de GitHub Actions-pagina.
+3. Log in bij GitHub, klik "Run workflow", plak de lijst in het veld videos_json
+   en start de workflow.
+4. Na een geslaagde workflow staat videos.json als commit in de repo. Binnen
+   ongeveer een minuut halen andere apparaten de lijst op.
 
-Zet het token alleen op JOUW apparaat, niet op dat van je kind: met dat
-token kan iemand de lijst in je repo wijzigen.
+Je hebt geen token of extra hostingaccount nodig. Je moet wel bij GitHub inloggen
+en de publicatie daar starten; zonder die bevestiging kan een openbare app niet
+veilig naar jouw repo schrijven.
 
-B. Via een bestand (zonder token)
+B. Via een bestand (alternatief)
 1. Instellingen -> "videos.json maken" (komt in je map Downloads).
 2. Dubbelklik op "Lijst publiceren.cmd" in de KidsTube-map.
+
+C. Direct publiceren met token (optioneel)
+In Instellingen kun je nog steeds een fine-grained token invullen. Dit is sneller,
+maar het token wordt in de browser op dit apparaat bewaard. Gebruik dit alleen op
+het ouderapparaat; de GitHub Actions-route is veiliger.
 
 Apparaten halen de lijst op bij het openen van de app, zodra je de app weer
 naar voren haalt, elke 5 minuten, en direct met de knop "Nu ophalen".

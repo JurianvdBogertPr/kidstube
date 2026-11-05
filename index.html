@@ -540,7 +540,15 @@
         <p class="note" id="sharedNote"></p>
 
         <div style="margin-top:16px">
-          <span style="font-weight:800;font-size:.95rem">Automatisch publiceren naar GitHub</span>
+          <span style="font-weight:800;font-size:.95rem">Publiceren naar GitHub zonder token</span>
+          <div class="row" style="margin-top:8px">
+            <button class="btn ok" id="workflowPublishBtn">⬆️ Publiceren via GitHub</button>
+          </div>
+          <p class="note" id="workflowPublishNote" style="margin-top:8px">Kopieert je lijst en opent GitHub. Log daar in, kies “Run workflow”, plak de lijst en start de publicatie. GitHub slaat de wijziging daarna als commit op in videos.json; andere apparaten halen die automatisch op.</p>
+        </div>
+
+        <div style="margin-top:16px">
+          <span style="font-weight:800;font-size:.95rem">Direct publiceren met token (optioneel)</span>
           <div class="row" style="margin-top:8px;gap:10px">
             <input type="text" id="ghRepo" placeholder="gebruiker/repo" style="flex:1;min-width:180px" />
             <input type="password" id="ghToken" placeholder="GitHub-token" style="flex:1;min-width:180px" />
@@ -549,7 +557,7 @@
           <div class="row" style="margin-top:10px">
             <button class="btn ok" id="publishBtn">⬆️ Lijst nu publiceren</button>
           </div>
-          <p class="note" id="ghNote" style="margin-top:8px">Vul dit één keer in op het apparaat waar jij de lijst beheert. Daarna publiceer je met één knop en volgen alle andere apparaten vanzelf. Maak op github.com → Settings → Developer settings → Fine-grained tokens een token met alleen <b>Contents: Read and write</b> op deze ene repo. Zet dit niet op het apparaat van je kind.</p>
+          <p class="note" id="ghNote" style="margin-top:8px">Dit is een optionele snellere route, maar het token wordt op dit apparaat bewaard. Gebruik liever de GitHub-publicatie hierboven als je geen token op je apparaat wilt.</p>
         </div>
 
         <hr style="border:none;border-top:2px solid var(--line);margin:22px 0" />
@@ -1741,6 +1749,25 @@ $("#lockBtn").onclick = () => askPin(() => {
 });
 
 /* ---------------- Publiceren naar GitHub ---------------- */
+$("#workflowPublishBtn").onclick = async () => {
+  const repo = ($("#ghRepo").value.trim() || standaardRepo()).trim();
+  if(!/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(repo)){
+    toast("Vul eerst een geldige GitHub-repo in, bijvoorbeeld gebruiker/kidstube.");
+    return;
+  }
+
+  const workflowUrl = "https://github.com/" + repo + "/actions/workflows/publish-videos.yml";
+  window.open(workflowUrl, "_blank", "noopener");
+  const payload = JSON.stringify(lijstAlsJson());
+  try{
+    await navigator.clipboard.writeText(payload);
+    $("#workflowPublishNote").textContent = "De lijst is gekopieerd. Open op GitHub “Run workflow”, plak de inhoud bij videos_json en start de workflow. Na een geslaagde run staat de lijst als commit in GitHub.";
+  }catch(e){
+    window.prompt("Kopieer deze lijst en plak hem in het veld videos_json op GitHub:", payload);
+    $("#workflowPublishNote").textContent = "Kopieer de getoonde lijst en plak hem op GitHub via “Run workflow” in het veld videos_json.";
+  }
+};
+
 function standaardRepo(){
   const m = location.hostname.match(/^([^.]+)\.github\.io$/i);
   if(!m) return "";

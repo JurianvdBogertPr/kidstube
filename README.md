@@ -38,9 +38,16 @@ In het ouderscherm staat onder Instellingen ook een knop **📲 App installeren*
 elk apparaat op *Leidend*: de lijst is exact gelijk aan `videos.json` — ook verwijderde
 video's, gewijzigde titels en categorieën worden overgenomen.
 
-**Publiceren vanuit de app** (ook vanaf de telefoon): vul bij Instellingen je repo en een
-fine-grained token in (*Contents: Read and write* op alleen deze repo) en klik op
-**⬆️ Lijst nu publiceren**. Zet dat token alleen op het apparaat van de ouder.
+**Publiceren zonder token** (ook vanaf de telefoon): kies in Instellingen
+**⬆️ Publiceren via GitHub**. KidsTube kopieert de lijst en opent de GitHub Actions-pagina.
+Log in, klik **Run workflow**, plak de lijst in `videos_json` en start de workflow.
+GitHub commit de nieuwe `videos.json` naar de standaardbranch; alle apparaten halen die
+lijst vervolgens automatisch op. Dit gebruikt je bestaande GitHub-account en vraagt geen
+token of extra hostingaccount. De publicatie vraagt wel een handmatige bevestiging op GitHub.
+
+Er is ook een optionele directe publicatie met een fine-grained token (*Contents: Read and
+write* op alleen deze repo). Dat token wordt in de browser bewaard; gebruik het alleen op
+het ouderapparaat. De GitHub Actions-route hierboven is veiliger.
 
 **Publiceren via een bestand**: Instellingen → **📤 videos.json maken** → dubbelklik
 `Lijst publiceren.cmd`.
@@ -86,13 +93,15 @@ referrer (Error 153). Gebruik dus altijd het startbestand.
 | `videos.json` | Gedeelde lijst voor alle apparaten |
 | `manifest.json`, `sw.js` | Installeerbaar als app, werkt offline |
 | `KidsTube starten.cmd`, `kidstube-server.ps1` | Lokaal starten op Windows |
+| `.github/workflows/publish-videos.yml` | Publiceert de lijst via GitHub Actions, zonder token in KidsTube |
 | `Lijst publiceren.cmd`, `kidstube-publiceren.ps1` | Lijst uit Downloads publiceren naar GitHub |
 | `icon-*.png`, `kidstube.ico` | Iconen |
 
 ## Privacy
 
-Er is geen account en geen backend. De lijst, kijktijd en instellingen staan in
-`localStorage` van het apparaat zelf. Video's spelen via `youtube-nocookie.com`.
+KidsTube heeft geen eigen backend. De lijst wordt alleen naar GitHub geschreven nadat een
+ouder de GitHub Actions-workflow handmatig heeft gestart. De lijst, kijktijd en instellingen
+staan verder in `localStorage` van het apparaat zelf. Video's spelen via `youtube-nocookie.com`.
 
 De pincode houdt kinderen uit het ouderscherm, maar is geen echte beveiliging:
 iedereen kan de broncode van een statische site lezen.

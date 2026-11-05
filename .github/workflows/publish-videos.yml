@@ -1,0 +1,79 @@
+name: Publish KidsTube video list
+
+on:
+  workflow_dispatch:
+    inputs:
+      videos_json:
+        description: Paste the videos.json content copied from the parent settings
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-kidstube-videos
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out default branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+
+      - name: Validate and write videos.json
+        env:
+          VIDEOS_JSON: ${{ inputs.videos_json }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import re
+          from pathlib import Path
+
+          data = json.loads(os.environ["VIDEOS_JSON"])
+          if not isinstance(data, dict):
+              raise SystemExit("Expected a JSON object.")
+          if not isinstance(data.get("cats"), list) or not isinstance(data.get("videos"), list):
+              raise SystemExit("JSON must contain cats and videos arrays.")
+
+          category_ids = set()
+          for category in data["cats"]:
+              if not isinstance(category, dict) or not all(
+                  isinstance(category.get(key), str) and category[key]
+                  for key in ("id", "name")
+              ):
+                  raise SystemExit("Every category must have a non-empty id and name.")
+              category_ids.add(category["id"])
+
+          for video in data["videos"]:
+              if not isinstance(video, dict) or not all(
+                  isinstance(video.get(key), str) and video[key]
+                  for key in ("yt", "title", "cat")
+              ):
+                  raise SystemExit("Every video must have a YouTube ID, title, and category.")
+              if not re.fullmatch(r"[A-Za-z0-9_-]{11}", video["yt"]):
+                  raise SystemExit(f"Invalid YouTube video ID: {video['yt']}")
+              if video["cat"] not in category_ids:
+                  raise SystemExit(f"Unknown category for video: {video['title']}")
+
+          Path("videos.json").write_text(
+              json.dumps(data, ensure_ascii=False, indent=2) + "\n",
+              encoding="utf-8",
+          )
+          PY
+
+      - name: Commit and publish
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add videos.json
+          if git diff --cached --quiet; then
+            echo "The shared list is already up to date."
+          else
+            git commit -m "Update KidsTube video list"
+            git push
+          fi
