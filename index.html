@@ -548,16 +548,16 @@
         </div>
 
         <div style="margin-top:16px">
-          <span style="font-weight:800;font-size:.95rem">Direct publiceren met token (optioneel)</span>
+          <span style="font-weight:800;font-size:.95rem">Automatisch opslaan naar GitHub</span>
           <div class="row" style="margin-top:8px;gap:10px">
             <input type="text" id="ghRepo" placeholder="gebruiker/repo" style="flex:1;min-width:180px" />
             <input type="password" id="ghToken" placeholder="GitHub-token" style="flex:1;min-width:180px" />
             <button class="btn sec" id="ghSave">Opslaan</button>
           </div>
           <div class="row" style="margin-top:10px">
-            <button class="btn ok" id="publishBtn">⬆️ Lijst nu publiceren</button>
+            <button class="btn ok" id="publishBtn">⬆️ Lijst nu opslaan</button>
           </div>
-          <p class="note" id="ghNote" style="margin-top:8px">Dit is een optionele snellere route, maar het token wordt op dit apparaat bewaard. Gebruik liever de GitHub-publicatie hierboven als je geen token op je apparaat wilt.</p>
+          <p class="note" id="ghNote" style="margin-top:8px">Na het opslaan van repo en token worden wijzigingen aan video's en categorieën automatisch naar GitHub gestuurd. Gebruik een fine-grained token met Contents: Read and write voor alleen deze repo. Het token wordt lokaal in deze browser bewaard; gebruik dit alleen op je ouderapparaat.</p>
         </div>
 
         <hr style="border:none;border-top:2px solid var(--line);margin:22px 0" />
@@ -647,6 +647,11 @@ const DEFAULTS = {
 };
 
 let S = load();
+let lastListFingerprint = "";
+let autoPublishTimer = null;
+let autoPublishBusy = false;
+let publishPromise = null;
+let laatstGepubliceerdeFingerprint = null;
 
 function load(){
   try{
@@ -656,9 +661,21 @@ function load(){
     return Object.assign(structuredClone(DEFAULTS), d);
   }catch(e){ return structuredClone(DEFAULTS); }
 }
-function save(){
+function lijstFingerprint(){
+  return JSON.stringify({
+    cats: S.cats,
+    videos: S.videos.map(v => ({ yt:v.yt, title:v.title, cat:v.cat }))
+  });
+}
+lastListFingerprint = lijstFingerprint();
+
+function save(options = {}){
   try{ localStorage.setItem(KEY, JSON.stringify(S)); }
   catch(e){ toast("Opslaan lukte niet 😕"); }
+  const fingerprint = lijstFingerprint();
+  const lijstGewijzigd = fingerprint !== lastListFingerprint;
+  lastListFingerprint = fingerprint;
+  if(lijstGewijzigd && !options.skipAutoPublish) planAutoPubliceren();
 }
 function today(){ return new Date().toISOString().slice(0,10); }
 function rollDay(){
@@ -1582,9 +1599,10 @@ function renderSettings(){
   const lokaal = S.videos.filter(v => v.src !== "shared").length;
   const gedeeld = S.videos.length - lokaal;
   const opgehaald = S.sharedAt ? new Date(S.sharedAt).toLocaleString("nl-NL", {hour:"2-digit", minute:"2-digit", day:"numeric", month:"short"}) : "nog niet";
+  const autoOpslaan = !!(S.ghRepo && S.ghToken && S.sharedMode !== "off");
   $("#sharedNote").textContent = {
-    mirror: `Leidend: videos.json bepaalt de lijst, op elk apparaat hetzelfde. Nu: ${gedeeld} gedeeld, ${lokaal} alleen op dit apparaat. Laatst opgehaald: ${opgehaald}. Voeg je hier video's toe? Maak dan een nieuwe videos.json en zet die in je repo, anders blijven ze lokaal.`,
-    merge: `Alleen aanvullen: nieuwe video's uit videos.json komen erbij, verwijderingen en wijzigingen niet. Nu: ${gedeeld} gedeeld, ${lokaal} alleen op dit apparaat. Laatst opgehaald: ${opgehaald}.`,
+    mirror: `Leidend: videos.json bepaalt de lijst, op elk apparaat hetzelfde. Nu: ${gedeeld} gedeeld, ${lokaal} alleen op dit apparaat. Laatst opgehaald: ${opgehaald}. ${autoOpslaan ? "Wijzigingen worden automatisch naar GitHub opgeslagen." : "Zonder token blijven wijzigingen lokaal tot je publiceert."}`,
+    merge: `Alleen aanvullen: nieuwe video's uit videos.json komen erbij, verwijderingen en wijzigingen niet. Nu: ${gedeeld} gedeeld, ${lokaal} alleen op dit apparaat. Laatst opgehaald: ${opgehaald}. ${autoOpslaan ? "Wijzigingen worden automatisch naar GitHub opgeslagen." : "Zonder token blijven wijzigingen lokaal tot je publiceert."}`,
     off: `Negeren: dit apparaat houdt zijn eigen lijst van ${S.videos.length} video's.`
   }[S.sharedMode || "mirror"];
   if(staatAlsApp){
@@ -1623,6 +1641,7 @@ $("#sharedMode").onchange = async () => {
   if(isWeb && S.sharedMode !== "off"){
     if(S.sharedMode === "merge") S.sharedRev = 0;  /* opnieuw ophalen */
     await loadShared(true);
+    planAutoPubliceren();
   }
   renderSettings(); renderVList();
   toast("Instelling opgeslagen");
@@ -1670,7 +1689,8 @@ $("#shareBtn").onclick = () => {
 };
 
 $("#exportBtn").onclick = () => {
-  const blob = new Blob([JSON.stringify(S,null,2)], {type:"application/json"});
+  const backup = Object.assign({}, S, { ghToken:"" });
+  const blob = new Blob([JSON.stringify(backup,null,2)], {type:"application/json"});
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
   a.download = "kidstube-backup.json";
@@ -1784,6 +1804,12 @@ function lijstAlsJson(){
 }
 
 async function publiceerLijst(){
+  if(publishPromise) return publishPromise;
+  publishPromise = publiceerLijstDirect().finally(() => { publishPromise = null; });
+  return publishPromise;
+}
+
+async function publiceerLijstDirect(){
   const repo = (S.ghRepo || "").trim();
   const token = (S.ghToken || "").trim();
   if(!repo || !token) throw new Error("geen-gegevens");
@@ -1801,6 +1827,7 @@ async function publiceerLijst(){
   else if(huidig.status === 401 || huidig.status === 403) throw new Error("geen-toegang");
 
   const data = lijstAlsJson();
+  const publicatieFingerprint = lijstFingerprint();
   const tekst = JSON.stringify(data, null, 2);
   const inhoud = btoa(String.fromCharCode(...new TextEncoder().encode(tekst)));
 
@@ -1818,8 +1845,47 @@ async function publiceerLijst(){
   S.videos.forEach(v => { v.src = "shared"; });
   S.sharedRev = data.rev;
   S.sharedAt = Date.now();
+  laatstGepubliceerdeFingerprint = publicatieFingerprint;
   save();
   return data.videos.length;
+}
+
+function planAutoPubliceren(){
+  if(!S.ghRepo || !S.ghToken || S.sharedMode === "off") return;
+  clearTimeout(autoPublishTimer);
+  autoPublishTimer = setTimeout(autoPubliceerLijst, 1200);
+}
+
+async function autoPubliceerLijst(){
+  autoPublishTimer = null;
+  if(autoPublishBusy || !S.ghRepo || !S.ghToken || S.sharedMode === "off") return;
+  autoPublishBusy = true;
+  let gelukt = false;
+  try{
+    const n = await publiceerLijst();
+    gelukt = true;
+    $("#ghNote").textContent = n + " video's automatisch opgeslagen in GitHub.";
+    toast("Wijzigingen automatisch opgeslagen in GitHub ✅");
+  }catch(e){
+    const uitleg = publiceerFoutTekst(e);
+    $("#ghNote").textContent = "Automatisch opslaan lukte niet: " + uitleg;
+    toast("Automatisch opslaan naar GitHub lukte niet 😕");
+  }finally{
+    autoPublishBusy = false;
+    if(gelukt && lijstFingerprint() !== laatstGepubliceerdeFingerprint) planAutoPubliceren();
+  }
+}
+
+function publiceerFoutTekst(e){
+  return {
+    "geen-gegevens": "Vul eerst de repo en een token in.",
+    "geen-toegang": "Het token heeft geen toegang tot deze repo.",
+    "http-401": "Het token is verlopen of ongeldig.",
+    "http-403": "GitHub geeft dit token geen schrijftoegang.",
+    "http-404": "Repo of bestand niet gevonden. Klopt gebruiker/repo?",
+    "http-409": "Er is net iets anders gepubliceerd. Probeer het nog eens.",
+    "http-422": "GitHub weigerde de wijziging. Controleer de repo-instellingen."
+  }[e.message] || "Controleer je internetverbinding en GitHub-token.";
 }
 
 $("#ghSave").onclick = () => {
@@ -1827,7 +1893,12 @@ $("#ghSave").onclick = () => {
   S.ghToken = $("#ghToken").value.trim();
   save();
   renderSettings();
-  toast("Opgeslagen 🔑");
+  if(S.ghRepo && S.ghToken){
+    planAutoPubliceren();
+    toast("Opgeslagen — automatische publicatie staat aan 🔑");
+  }else{
+    toast("Opgeslagen");
+  }
 };
 
 $("#publishBtn").onclick = async () => {
@@ -1837,20 +1908,14 @@ $("#publishBtn").onclick = async () => {
   try{
     const n = await publiceerLijst();
     renderVList(); renderSettings();
-    toast(n + " video's gepubliceerd ✅ Andere apparaten volgen binnen een minuut.");
+    toast(n + " video's opgeslagen in GitHub ✅ Andere apparaten volgen binnen een minuut.");
   }catch(e){
-    const uitleg = {
-      "geen-gegevens": "Vul eerst de repo en een token in.",
-      "geen-toegang": "Het token heeft geen toegang tot deze repo.",
-      "http-404": "Repo of bestand niet gevonden. Klopt gebruiker/repo?",
-      "http-409": "Er is net iets anders gepubliceerd. Probeer het nog eens.",
-      "http-422": "GitHub weigerde de wijziging. Probeer het nog eens."
-    }[e.message] || "Publiceren lukte niet. Controleer je internet en het token.";
+    const uitleg = publiceerFoutTekst(e);
     toast(uitleg);
     $("#ghNote").textContent = uitleg;
   }finally{
     btn.disabled = false;
-    btn.textContent = "⬆️ Lijst nu publiceren";
+    btn.textContent = "⬆️ Lijst nu opslaan";
   }
 };
 
@@ -1937,7 +2002,7 @@ async function loadShared(stil){
 
     S.sharedRev = rev;
     S.sharedAt = Date.now();
-    save();
+    save({ skipAutoPublish:true });
     renderCats(); renderGrid();
     if($("#parentOverlay").classList.contains("show")){ renderVList(); renderSettings(); }
 

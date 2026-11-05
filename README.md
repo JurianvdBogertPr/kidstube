@@ -38,16 +38,16 @@ In het ouderscherm staat onder Instellingen ook een knop **📲 App installeren*
 elk apparaat op *Leidend*: de lijst is exact gelijk aan `videos.json` — ook verwijderde
 video's, gewijzigde titels en categorieën worden overgenomen.
 
-**Publiceren zonder token** (ook vanaf de telefoon): kies in Instellingen
-**⬆️ Publiceren via GitHub**. KidsTube kopieert de lijst en opent de GitHub Actions-pagina.
-Log in, klik **Run workflow**, plak de lijst in `videos_json` en start de workflow.
-GitHub commit de nieuwe `videos.json` naar de standaardbranch; alle apparaten halen die
-lijst vervolgens automatisch op. Dit gebruikt je bestaande GitHub-account en vraagt geen
-token of extra hostingaccount. De publicatie vraagt wel een handmatige bevestiging op GitHub.
+**Automatisch opslaan naar GitHub**: vul in Instellingen je repo en een fine-grained token
+in met *Contents: Read and write* voor alleen deze repo. Na wijzigingen aan video's of
+categorieën slaat KidsTube de lijst automatisch op in `videos.json`; andere apparaten halen
+de lijst daarna op. Het token wordt in de browser bewaard, dus gebruik deze optie alleen op
+het ouderapparaat.
 
-Er is ook een optionele directe publicatie met een fine-grained token (*Contents: Read and
-write* op alleen deze repo). Dat token wordt in de browser bewaard; gebruik het alleen op
-het ouderapparaat. De GitHub Actions-route hierboven is veiliger.
+**Zonder token publiceren**: kies **⬆️ Publiceren via GitHub**. KidsTube kopieert de lijst
+en opent GitHub Actions. Log in, klik **Run workflow**, plak de lijst in `videos_json` en
+start de workflow. Dit vraagt geen extra hostingaccount of token, maar wel een handmatige
+bevestiging op GitHub.
 
 **Publiceren via een bestand**: Instellingen → **📤 videos.json maken** → dubbelklik
 `Lijst publiceren.cmd`.
@@ -56,8 +56,8 @@ Apparaten halen de lijst op bij het openen van de app, bij terugkeren naar de ap
 5 minuten, en direct via **🔄 Nu ophalen**. De app vraagt het bestand met een unieke URL op,
 zodat GitHub's cache van 10 minuten niet in de weg zit.
 
-Video's die je op één apparaat toevoegt blijven daar staan (gemarkeerd als *alleen hier*)
-totdat je publiceert. Favorieten, kijktijd en pincode blijven altijd per apparaat.
+Zonder token blijven video's die je op één apparaat toevoegt lokaal (gemarkeerd als
+*alleen hier*) totdat je publiceert. Favorieten, kijktijd en pincode blijven altijd per apparaat.
 
 In Instellingen kun je dit per apparaat aanpassen:
 

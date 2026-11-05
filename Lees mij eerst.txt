@@ -51,28 +51,26 @@ toestel zelf:
   adresbalk. Voor volledige kiosk kun je een apart kinderaccount gebruiken.
 
 
-DE LIJST OVERAL GELIJK: PUBLICEREN ZONDER TOKEN
+DE LIJST AUTOMATISCH OPSLAAN OP GITHUB
 
-A. Via GitHub Actions (ook vanaf de telefoon)
-1. In KidsTube: slotje -> Instellingen -> "Publiceren via GitHub".
-2. KidsTube kopieert de lijst en opent de GitHub Actions-pagina.
-3. Log in bij GitHub, klik "Run workflow", plak de lijst in het veld videos_json
-   en start de workflow.
-4. Na een geslaagde workflow staat videos.json als commit in de repo. Binnen
-   ongeveer een minuut halen andere apparaten de lijst op.
+1. In KidsTube: slotje -> Instellingen. Vul je repo in, bijvoorbeeld
+   JurianvdBogertPr/kidstube, en een fine-grained GitHub-token.
+2. Geef het token alleen toegang tot deze repo en de rechten Contents:
+   Read and write. Klik op Opslaan.
+3. Video's en categorieën worden voortaan automatisch naar GitHub opgeslagen
+   nadat je ze wijzigt. Andere apparaten halen de lijst automatisch op.
 
-Je hebt geen token of extra hostingaccount nodig. Je moet wel bij GitHub inloggen
-en de publicatie daar starten; zonder die bevestiging kan een openbare app niet
-veilig naar jouw repo schrijven.
+Het token wordt in de browser bewaard. Gebruik dit alleen op het ouderapparaat,
+niet op een toestel dat kinderen gebruiken.
 
-B. Via een bestand (alternatief)
+ZONDER TOKEN PUBLICEREN
+Instellingen -> "Publiceren via GitHub". KidsTube kopieert de lijst en opent
+GitHub Actions. Log in, klik "Run workflow", plak de lijst in videos_json en
+start de workflow. Dit vereist een handmatige bevestiging op GitHub.
+
+VIA EEN BESTAND (alternatief)
 1. Instellingen -> "videos.json maken" (komt in je map Downloads).
 2. Dubbelklik op "Lijst publiceren.cmd" in de KidsTube-map.
-
-C. Direct publiceren met token (optioneel)
-In Instellingen kun je nog steeds een fine-grained token invullen. Dit is sneller,
-maar het token wordt in de browser op dit apparaat bewaard. Gebruik dit alleen op
-het ouderapparaat; de GitHub Actions-route is veiliger.
 
 Apparaten halen de lijst op bij het openen van de app, zodra je de app weer
 naar voren haalt, elke 5 minuten, en direct met de knop "Nu ophalen".
@@ -81,8 +79,8 @@ Elk apparaat is daarna exact gelijk aan videos.json: toevoegingen,
 naamswijzigingen en verwijderingen gaan mee. Favorieten, kijktijd en
 pincode blijven per apparaat.
 
-Video's die je op een apparaat toevoegt staan in het ouderscherm als
-"alleen hier". Ze blijven staan tot je publiceert.
+Zonder token staan video's die je op een apparaat toevoegt als "alleen hier"
+totdat je ze publiceert. Met automatische opslag worden ze direct naar GitHub gestuurd.
 Wil je het anders? Instellingen -> "Gedeelde lijst": Leidend (standaard),
 Alleen aanvullen, of Negeren.
 
